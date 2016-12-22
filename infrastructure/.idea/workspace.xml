@@ -4,7 +4,6 @@
     <list default="true" id="a331b147-9c51-414f-8874-b34ed70c004e" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/database/__init__.py" />
     </list>
     <ignored path="infrastructure.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -263,6 +262,14 @@
       <option name="presentableId" value="Default" />
       <updated>1482429720071</updated>
     </task>
+    <task id="LOCAL-00001" summary="Test on committing local branch via Pycharm&#10;">
+      <created>1482430285381</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1482430285381</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -298,6 +305,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Test on committing local branch via Pycharm&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test on committing local branch via Pycharm&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
