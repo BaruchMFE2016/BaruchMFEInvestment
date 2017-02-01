@@ -28,17 +28,20 @@ if __name__ == "__main__":
     expected_factor_cov_naive = factor_returns.cov()
 
     # Read factor exposures
-    factor_exposure = pd.read_csv('./factor_exposure_matrix_20160101.csv', header=None).head()
+    factor_exposure = pd.read_csv('./factor_exposure_matrix_20160101.csv', header=None)
 
     # Exclude the first column (date)
     var, corr, expected_factor_cov = get_cov(factor_returns.iloc[:,1:])
-    print("EWMA covariance matrix")
-    print(expected_factor_cov)
-    print("Naive covariance matrix")
-    print(expected_factor_cov_naive)
+    # print("EWMA covariance matrix")
+    # print(expected_factor_cov)
+    # print("Naive covariance matrix")
+    # print(expected_factor_cov_naive)
 
-    # TODO: replace 0 with D
-    print(GetExpectedReturn(expected_factor_return, expected_factor_cov, 0, factor_exposure))
-
-    # estimate D, a diagonal matrix of variance of error term in APT model
-    price = pd.read_csv('./r3000_price.csv')
+    # TODO: the varaince of error is hard coded here
+    expected_return, expected_return_cov = GetExpectedReturn(
+                                            expected_factor_return, 
+                                            expected_factor_cov,
+                                            np.identity(factor_exposure.shape[0]) * 0.0166834997298, 
+                                            factor_exposure)
+    print(expected_return.shape)
+    print(expected_return_cov.shape)
