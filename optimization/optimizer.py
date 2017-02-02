@@ -1,6 +1,6 @@
 # Author: Derek Qi
 # Date: 1/20/2017
-# Version: 0.2
+# Version: 0.4
 
 import numpy as np
 import cvxopt as opt
