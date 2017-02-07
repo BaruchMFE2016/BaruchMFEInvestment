@@ -33,6 +33,10 @@ def GenReturn(factor_return_file, factor_exposure_file, stock_list_file):
     """
     # Read factor returns
     factor_returns = pd.read_csv(factor_return_file, header=None)
+
+    # Reverse by row
+    factor_returns = factor_returns.iloc[::-1]
+
     expected_factor_return = factor_returns.mean()
     expected_factor_cov_naive = factor_returns.cov()
 
