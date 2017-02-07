@@ -21,14 +21,23 @@ def GetExpectedReturn(uf, F, D, X):
     expected_return_cov = np.dot(np.dot(X, F), X.T) + D
     return expected_return, expected_return_cov
 
-if __name__ == "__main__":
+def GenReturn(factor_return_file, factor_exposure_file, stock_list_file):
+    """This function gives expcted return and its covariance, as well as
+    the stock list
+
+    :factor_return_file: factor return file
+    :factor_exposure_file: factor exposure file
+    :stock_list_file: a list consist of all stocks considered in our model
+    :returns: (expected return, expected return variance, stock_list)
+
+    """
     # Read factor returns
-    factor_returns = pd.read_csv('./factor_returns_20140103_20160101.csv')
+    factor_returns = pd.read_csv(factor_return_file, header=None)
     expected_factor_return = factor_returns.mean()
     expected_factor_cov_naive = factor_returns.cov()
 
     # Read factor exposures
-    factor_exposure = pd.read_csv('./factor_exposure_matrix_20160101.csv', header=None)
+    factor_exposure = pd.read_csv(factor_exposure_file, header=None)
 
     # Exclude the first column (date)
     var, corr, expected_factor_cov = get_cov(factor_returns.iloc[:,1:])
@@ -41,7 +50,20 @@ if __name__ == "__main__":
     expected_return, expected_return_cov = GetExpectedReturn(
                                             expected_factor_return, 
                                             expected_factor_cov,
-                                            np.identity(factor_exposure.shape[0]) * 0.0166834997298, 
+                                            np.identity(factor_exposure.shape[0]) * 0.00700037700382  # 0.0166834997298, 
                                             factor_exposure)
+
+    # load stock list
+    stock_list = [line.strip() for line in open(stock_list_file, 'r')]
+    return expected_return, expected_return_cov, stock_list
+
+if __name__ == "__main__":
+
+    # Now the filter is set up as vol > 1M
+    # There are 1822 stocks in the stock pool
+    expected_return, expected_return_cov, stock_list = GenReturn('./factor_return_new.csv', 
+                                                                 './factor_exposure_matrix.csv',
+                                                                 './stock_list.csv')
     print(expected_return.shape)
     print(expected_return_cov.shape)
+    print(len(stock_list))
