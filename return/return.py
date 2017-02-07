@@ -50,7 +50,7 @@ def GenReturn(factor_return_file, factor_exposure_file, stock_list_file):
     expected_return, expected_return_cov = GetExpectedReturn(
                                             expected_factor_return, 
                                             expected_factor_cov,
-                                            np.identity(factor_exposure.shape[0]) * 0.00700037700382  # 0.0166834997298, 
+                                            np.identity(factor_exposure.shape[0]) * 0.00700037700382,  # 0.0166834997298, 
                                             factor_exposure)
 
     # load stock list
