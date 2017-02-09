@@ -3,7 +3,7 @@ __author__ = 'Zilun Shen'
 
 # Factor Covariance Matrix Estimation
 
-from .factor_model.factor_cov import FactorCovEstimator
+from .factor_cov import FactorCovEstimator
 import numpy as np
 
 def get_cov(X):

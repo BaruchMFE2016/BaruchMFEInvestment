@@ -1,3 +1,4 @@
+__author__ = 'Zilun Shen'
 # This script reads factor return and factor exposure from .csv files
 # and gives the first an second moments of the asset returns
 # Author: Zilun Shen
@@ -5,7 +6,7 @@
 
 import pandas as pd
 import numpy as np
-from return_cov.factor_return_cov import get_cov
+from .factor_return_cov import get_cov
 
 def GetExpectedReturn(uf, F, D, X):
     """Calculate expected return and covariance matrix
@@ -65,9 +66,10 @@ if __name__ == "__main__":
 
     # Now the filter is set up as vol > 1M
     # There are 1822 stocks in the stock pool
-    expected_return, expected_return_cov, stock_list = GenReturn('./factor_return_new.csv', 
-                                                                 './factor_exposure_matrix.csv',
-                                                                 './stock_list.csv')
+    datadir = '../datainput/'
+    expected_return, expected_return_cov, stock_list = GenReturn('../datainput/factor_return_new.csv',
+                                                                 '../datainput/factor_exposure_matrix.csv',
+                                                                 '../datainput/stock_list.csv')
     print(expected_return.shape)
     print(expected_return_cov.shape)
     print(len(stock_list))
