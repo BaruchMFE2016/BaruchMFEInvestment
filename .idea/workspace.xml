@@ -2,18 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="72f5ec42-bed2-4c1f-84f6-0e8f7b575fdb" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/return/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/return/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/return/factor_exposure_matrix.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/return/factor_return_new.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/return/return.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/return/return_cov/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/return/return_cov/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/return/return_cov/factor_model" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/return/return_cov/factor_return_cov.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/return/stock_list.csv" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/optimization/Optimizer_User_Guide.ipynb" afterPath="$PROJECT_DIR$/optimization/Optimizer_User_Guide.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/optimization/optimizer.py" afterPath="$PROJECT_DIR$/optimization/optimizer.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,7 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/BaruchMFEInvestment$optimizer.coverage" NAME="optimizer Coverage Results" MODIFIED="1486661119132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/optimization" />
+    <SUITE FILE_PATH="coverage/BaruchMFEInvestment$optimizer.coverage" NAME="optimizer Coverage Results" MODIFIED="1487525502249" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/optimization" />
     <SUITE FILE_PATH="coverage/BaruchMFEInvestment$poolcheck.coverage" NAME="poolcheck Coverage Results" MODIFIED="1486497882886" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/optimization" />
     <SUITE FILE_PATH="coverage/BaruchMFEInvestment$testmain.coverage" NAME="testmain Coverage Results" MODIFIED="1485046563735" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/optimization" />
     <SUITE FILE_PATH="coverage/BaruchMFEInvestment$alpha.coverage" NAME="alpha Coverage Results" MODIFIED="1486662326064" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/factor_model" />
@@ -38,21 +26,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="alpha.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/factor_model/alpha.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="6" lean-forward="false" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GenPosition.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GenPosition.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backtest/GenPosition.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="8" column="21" lean-forward="true" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+            <state relative-caret-position="209">
+              <caret line="14" column="7" lean-forward="false" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
               <folding>
                 <element signature="e#81#99#0" expanded="true" />
               </folding>
@@ -60,13 +38,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="factor_return_cov.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/factor_model/factor_return_cov.py">
+      <file leaf-file-name="optimizer.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/optimization/optimizer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" column="25" lean-forward="false" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
+            <state relative-caret-position="163">
+              <caret line="83" column="84" lean-forward="false" selection-start-line="83" selection-start-column="84" selection-end-line="83" selection-end-column="84" />
               <folding>
-                <element signature="e#67#109#0" expanded="true" />
+                <element signature="e#94#112#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -109,11 +87,11 @@
         <option value="$PROJECT_DIR$/optimization/init.py" />
         <option value="$PROJECT_DIR$/alpha/alpha.py" />
         <option value="$PROJECT_DIR$/portfolio.csv" />
-        <option value="$PROJECT_DIR$/optimization/optimizer.py" />
         <option value="$PROJECT_DIR$/GenPosition.py" />
         <option value="$PROJECT_DIR$/factor_model/alpha.py" />
         <option value="$PROJECT_DIR$/factor_model/factor_return_cov.py" />
         <option value="$PROJECT_DIR$/backtest/GenPosition.py" />
+        <option value="$PROJECT_DIR$/optimization/optimizer.py" />
       </list>
     </option>
   </component>
@@ -147,6 +125,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -203,8 +183,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -213,7 +191,7 @@
     <property name="js.eslint.eslintPackage" value="" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.GenPosition (1)">
+  <component name="RunManager" selected="Python.optimizer">
     <configuration default="false" name="optimizer" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -527,10 +505,10 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.GenPosition (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Python.GenPosition" />
-        <item index="2" class="java.lang.String" itemvalue="Python.alpha" />
-        <item index="3" class="java.lang.String" itemvalue="Python.optimizer" />
+        <item index="0" class="java.lang.String" itemvalue="Python.optimizer" />
+        <item index="1" class="java.lang.String" itemvalue="Python.GenPosition (1)" />
+        <item index="2" class="java.lang.String" itemvalue="Python.GenPosition" />
+        <item index="3" class="java.lang.String" itemvalue="Python.alpha" />
         <item index="4" class="java.lang.String" itemvalue="Python.poolcheck" />
       </list>
     </recent_temporary>
@@ -584,7 +562,7 @@
     <frame x="65" y="24" width="1855" height="951" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21779989" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22056384" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985386" sideWeight="0.50193477" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -592,7 +570,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985386" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3282532" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32865497" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39976552" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -638,7 +616,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="9" />
+      <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -677,7 +655,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#42#60#0" expanded="false" />
+            <element signature="e#94#112#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -709,7 +687,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#42#60#0" expanded="false" />
+            <element signature="e#94#112#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -719,7 +697,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#42#60#0" expanded="false" />
+            <element signature="e#94#112#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -729,7 +707,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#42#60#0" expanded="false" />
+            <element signature="e#94#112#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -739,7 +717,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#42#60#0" expanded="false" />
+            <element signature="e#94#112#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -749,7 +727,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#42#60#0" expanded="false" />
+            <element signature="e#94#112#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -759,7 +737,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#42#60#0" expanded="false" />
+            <element signature="e#94#112#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -769,7 +747,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#42#60#0" expanded="false" />
+            <element signature="e#94#112#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -869,27 +847,9 @@
     <entry file="file://$PROJECT_DIR$/return/factor_return_new.csv" />
     <entry file="file://$PROJECT_DIR$/return/stock_list.csv" />
     <entry file="file://$PROJECT_DIR$/return/return.py" />
-    <entry file="file://$PROJECT_DIR$/alpha/return_cov/factor_return_cov.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/portfolio.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/portfolio_long_short.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-297">
-          <caret line="1" column="18" lean-forward="false" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/alpha/return_cov/factor_return_cov.py" />
+    <entry file="file://$PROJECT_DIR$/portfolio.csv" />
+    <entry file="file://$PROJECT_DIR$/portfolio_long_short.csv" />
     <entry file="file://$PROJECT_DIR$/optimization/Optimizer_User_Guide.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
@@ -897,39 +857,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/alpha/alpha.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/optimization/optimizer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding>
-            <element signature="e#42#60#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/alpha/alpha.py" />
     <entry file="file://$PROJECT_DIR$/factor_model/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/factor_model/factor_return_cov.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="25" lean-forward="false" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
-          <folding>
-            <element signature="e#67#109#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -937,9 +869,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="303">
           <caret line="46" column="69" lean-forward="false" selection-start-line="46" selection-start-column="69" selection-end-line="46" selection-end-column="69" />
-          <folding>
-            <element signature="e#81#99#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -951,12 +880,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/factor_model/factor_return_cov.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="25" lean-forward="false" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
+          <folding>
+            <element signature="e#67#109#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/backtest/GenPosition.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="8" column="21" lean-forward="true" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+        <state relative-caret-position="209">
+          <caret line="14" column="7" lean-forward="false" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
           <folding>
             <element signature="e#81#99#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/optimization/optimizer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="83" column="84" lean-forward="false" selection-start-line="83" selection-start-column="84" selection-end-line="83" selection-end-column="84" />
+          <folding>
+            <element signature="e#94#112#0" expanded="true" />
           </folding>
         </state>
       </provider>
