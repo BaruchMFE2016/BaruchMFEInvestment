@@ -5,7 +5,7 @@ __author__ = 'Derek Qi'
 import numpy as np
 import pandas as pd
 from factor_model import alpha
-from optimization import optimizer as opt
+from optimization_old import optimizer as opt
 from time import time
 
 
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     start = time()
     datadir = './datainput/'
     outputdir = './output/'
-    factor_return_file, factor_exposure_file, stock_list_file = datadir + 'factor_return_new.csv', datadir + 'factor_exposure_matrix.csv', datadir + 'stock_list.csv'
+    factor_return_file, factor_exposure_file, stock_list_file = datadir + 'factor_return.csv', datadir + 'factor_exposure_matrix.csv', datadir + 'stock_list.csv'
     # Long-only position
     stock_list, w_opt = GenPosition(factor_return_file, factor_exposure_file, stock_list_file, hasshort=False)
     w_opt = PositionFilter(w_opt)
