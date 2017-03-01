@@ -19,9 +19,9 @@ def GenPosition(factor_return_file, factor_exposure_file, stock_list_file, hassh
     w_old = np.ones([N_INS, 1]) / N_INS # Start from an evenly-split portfolio and assign no position-changing limits
 
     if hasshort:
-        w_opt = opt.optimizerlongshort(w_old, alpha=ret, sigma=sigma)
+        w_opt = opt.optimizerlongshort(w_old, alpha=ret, sigma=sigma, L=-1, U=1)
     else:
-        w_opt = opt.optimizer(w_old, alpha=ret, sigma=sigma)
+        w_opt = opt.optimizer(w_old, alpha=ret, sigma=sigma, L=-1, U=1)
     return stock_list, w_opt
 
 
