@@ -13,7 +13,7 @@ def GenPortfolioReport(portfolio_file, report_file):
 	ticker_list = list(ptfl_sel['Ticker'])
 
 	row_dict_list = []
-	# get Name, prev_close, market_cap, PE, avg_daily_volume, Beta, Industry from Yahoo finance
+	# get Name, prev_close, market_cap, PE, avg_daily_volume, from Yahoo finance
 	for ticker in ticker_list:
 		stock = Share(ticker)
 		stock.refresh()
