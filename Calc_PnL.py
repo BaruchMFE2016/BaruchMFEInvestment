@@ -30,7 +30,8 @@ def pnl_series_simple(ptfl_s, ret_s):
 
 if __name__ == '__main__':
 	lret = pd.read_csv('./data/raw_input/r3000_log_return.csv')
-	ptfl = pd.read_csv('./output/portfolio_long_only.csv')
+	# ptfl = pd.read_csv('./output/portfolio_long_only.csv')
+	ptfl = pd.read_csv('./output/portfolio_long_short.csv')
 	
 	pnl_s = pnl_series_simple(ptfl, lret)
 
