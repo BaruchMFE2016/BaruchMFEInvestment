@@ -4,7 +4,7 @@ __author__ = 'Derek Qi'
 
 import numpy as np
 import pandas as pd
-from datetime import datetime strftime
+from datetime import datetime
 from time import time
 from yahoo_finance import Share
 
@@ -69,9 +69,9 @@ def GenPortfolioReport(ptfl_full, report_file, pt=False):
 
 if __name__ == "__main__":
     start = time()
-    datadir = './datainput/'
+    datadir = './data/factor_ret_exp/'
     outputdir = './output/'
-    factor_return_file, factor_exposure_file, stock_list_file = datadir + 'factor_return.csv', datadir + 'factor_exposure_matrix.csv', datadir + 'stock_list.csv'
+    factor_return_file, factor_exposure_file, stock_list_file = datadir + 'factor_return_20101231_20131227.csv', datadir + 'factor_exposure_matrix_20101231_20131227.csv', datadir + 'stock_list_20140103.csv'
     # Long-only position
     stock_list, w_opt = GenPosition(factor_return_file, factor_exposure_file, stock_list_file, hasshort=False)
     w_opt = PositionFilter(w_opt)
