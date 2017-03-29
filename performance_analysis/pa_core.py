@@ -9,6 +9,10 @@ from datetime import datetime, timedelta
 # Take portfolio and benchmark pnls of a period
 
 
+def tot_ret(ptfl):
+    return sum(ptfl['Pnl'])
+
+
 def cagr(ptfl):
     r = np.mean(ptfl['Pnl'])
     cagr = np.exp(r) - 1
@@ -37,16 +41,26 @@ def information_ratio(ptfl, bmk=None):
     return ir
 
 
+# def max_drawdown(ptfl):
+#     pnl = ptfl['Pnl']
+#     ptfl_v = np.cumsum(pnl)
+#     max_dd = 0
+#     for i in range(1, len(ptfl_v)):
+#         cur_max = max(ptfl_v[0:i])
+#         cur_dd = cur_max - ptfl_v[i]
+#         if cur_dd > max_dd:
+#             max_dd = cur_dd
+#     return max_dd
+
+
 def max_drawdown(ptfl):
     pnl = ptfl['Pnl']
-    ptfl_v = np.cumsum(pnl)
-    max_dd = 0
-    for i in range(1, len(ptfl_v)):
-        cur_max = max(ptfl_v[0:i])
-        cur_dd = cur_max - ptfl_v[i]
-        if cur_dd > max_dd:
-            max_dd = cur_dd
-    return max_dd
+    cpnl = np.cumsum(pnl)
+    return min(cpnl)
+
+def drawdown_length(ptfl):
+    pnl = ptfl['Pnl']
+    return sum(pnl < 0)
 
 
 # def VaR(ptfl):

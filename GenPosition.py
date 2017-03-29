@@ -22,9 +22,9 @@ def GenPosition(factor_return_file, factor_exposure_file, stock_list_file, hassh
     w_old = np.ones([N_INS, 1]) / N_INS # Start from an evenly-split portfolio and assign no position-changing limits
 
     if hasshort:
-        w_opt = opt.optimizerlongshort(w_old, alpha=ret, sigma=sigma, L=-1, U=1)
+        w_opt = opt.optimizerlongshort(w_old, alpha=ret, sigma=sigma, L=-0.2, U=0.2)
     else:
-        w_opt = opt.optimizer(w_old, alpha=ret, sigma=sigma, L=-1, U=1)
+        w_opt = opt.optimizer(w_old, alpha=ret, sigma=sigma, L=-0.2, U=0.2)
     return stock_list, w_opt
 
 
@@ -71,7 +71,7 @@ if __name__ == "__main__":
     start = time()
     datadir = './data/factor_ret_exp/'
     outputdir = './output/'
-    factor_return_file, factor_exposure_file, stock_list_file = datadir + 'factor_return_20101231_20131227.csv', datadir + 'factor_exposure_matrix_20101231_20131227.csv', datadir + 'stock_list_20140103.csv'
+    factor_return_file, factor_exposure_file, stock_list_file = datadir + 'factor_return_20101231_20131227.csv', datadir + 'factor_exposure_matrix.csv', datadir + 'stock_list_20140103.csv'
     # Long-only position
     stock_list, w_opt = GenPosition(factor_return_file, factor_exposure_file, stock_list_file, hasshort=False)
     w_opt = PositionFilter(w_opt)
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     now = datetime.now()
     nowstr = now.strftime('%Y%m%d_%H:%M:%S')
     GenPortfolioReport(ptfl_full, report_file=outputdir + 'portfolio_report_long_only'+nowstr+'.csv', pt=True)
-    # result.to_csv(outputdir + 'portfolio_test_long_only.csv', index=False)
+    ptfl_full.to_csv(outputdir + 'portfolio_long_only.csv', index=False)
     pause = time()
     print(pause - start)
     # Long-Short position
@@ -87,6 +87,6 @@ if __name__ == "__main__":
     w_opt = PositionFilter(w_opt)
     ptfl_full_ls = pd.DataFrame({"Ticker": stock_list, "Weight": list(w_opt.T[0])})
     GenPortfolioReport(ptfl_full_ls, report_file=outputdir + 'portfolio_report_long_short'+nowstr+'.csv', pt=True)
-    # result.to_csv(outputdir + 'portfolio_test_long_short.csv', index=False)
+    ptfl_full_ls.to_csv(outputdir + 'portfolio_long_short.csv', index=False)
     end = time()
     print(end - pause)
