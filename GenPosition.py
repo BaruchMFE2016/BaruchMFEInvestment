@@ -8,15 +8,15 @@ from datetime import datetime
 from time import time
 from yahoo_finance import Share
 
-from factor_model import alpha
+from factor_model import stock_ret_est
 from optimization_old import optimizer as opt
 
 
-def GenPosition(factor_return_file, factor_exposure_file, stock_list_file, hasshort=False):
+def GenPosition(factor_return, factor_exposure, hasshort=False):
     """
     :return: stock list and the corresponding weight in optimized portfolio
     """
-    ret, sigma, stock_list = alpha.GenReturn(factor_return_file, factor_exposure_file, stock_list_file)
+    ret, sigma, stock_list = stock_ret_est.GenReturn(factor_return, factor_exposure)
     N_INS = ret.shape[0]
     ret = np.reshape(ret, (N_INS, 1))
     w_old = np.ones([N_INS, 1]) / N_INS # Start from an evenly-split portfolio and assign no position-changing limits
