@@ -5,6 +5,8 @@ import pandas as pd
 from datetime import datetime
 
 
+### inplace filtering for the entire universe
+
 def filt_na(univ):
 	'''
 	filter out na in a universe
@@ -32,3 +34,16 @@ def filt_byval(univ, varname, thrd, keep='above'):
 		if keep == 'below':
 			idx_in = 1 - idx_in
 		univ[t] = univ_ti.ix[idx_in,:]
+
+
+def filt_byval_single_period(univ_sp, varname, thrd, keep='above'):
+	'''
+	filter out any element under varname that has value thrd or below for a single period
+	snapshot of the universe
+	'''
+	univ_sp = univ_sp.copy()
+	idx_in = univ_sp[varname] > thrd
+	if keep == 'below':
+		idx_in = 1 - ind_in
+	univ_sp = univ_sp.ix[idx_in,:]
+	return univ_sp

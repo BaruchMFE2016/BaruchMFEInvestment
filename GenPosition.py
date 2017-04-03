@@ -40,9 +40,9 @@ def PositionFilter(w, tol=1e-4):
 
 def GenPortfolioReport(ptfl_full, report_file, pt=False):
     # Generates the portfolio report, fetch data from Yahoo finance
-    ptfl_sel = ptfl_full[ptfl_full['Weight'] != 0]
+    ptfl_sel = ptfl_full[ptfl_full['weight'] != 0]
 
-    ticker_list = list(ptfl_sel['Ticker'])
+    ticker_list = list(ptfl_sel['ticker'])
 
     row_dict_list = []
     # get Name, prev_close, market_cap, PE, avg_daily_volume, from Yahoo finance
