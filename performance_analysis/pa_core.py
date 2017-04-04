@@ -63,8 +63,21 @@ def drawdown_length(ptfl):
     return sum(pnl < 0)
 
 
-# def VaR(ptfl):
+def simple_pa(ptfl):
+	pmfc = (cagr(ptfl), vol(ptfl), sharpe_ratio(ptfl), max_drawdown(ptfl), drawdown_length(ptfl))
+	print('CAGR:%f \nVolatility:%f\nSharpe_ratio:%f\nmax drawdown: %f\ndrawdown length: %f\n' % pmfc)
 
+
+def plot_nav(ptfl, show=True, savedir=None):
+	pnl = ptfl['Pnl']
+	cumlogret = np.cumsum(pnl)
+	nav = np.exp(cumlogret)
+	plt.plot(nav, label='Net Asset Value')
+	plt.legend(loc=0)
+	if show:
+		plt.show()
+	if savedir:
+		plt.savefig(savedir + 'NAV_curve.png')
 
 
 if __name__ == '__main__':

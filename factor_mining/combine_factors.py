@@ -23,8 +23,8 @@ def combine_factors(factors_dict):
 
 	f_ex_lst = [0] * N_T
 	for ti in range(N_T):
-		if ti % 50 == 0:
-			print(ti)
+		# if ti % 50 == 0:
+			# print(ti)
 		f_ti = [factors_dict[k][datelst[ti]] for k in factor_names]
 		f_ex_ti = [f_ti[0].date, f_ti[0].ticker] + [f.iloc[:,2] for f in f_ti]
 		f_ex_ti = [f.reset_index(drop=True) for f in f_ex_ti]

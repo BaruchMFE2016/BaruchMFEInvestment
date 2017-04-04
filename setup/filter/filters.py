@@ -47,3 +47,17 @@ def filt_byval_single_period(univ_sp, varname, thrd, keep='above'):
 		idx_in = 1 - ind_in
 	univ_sp = univ_sp.ix[idx_in,:]
 	return univ_sp
+
+
+def filt_by_name(univ):
+	'''
+	Filt out tickers with special characters and numbers
+	'''
+	datelst = sorted(univ.keys())
+	N_T = len(datelst)
+	for ti in range(N_T):
+		t = datelst[ti]
+		univ_ti = univ[t]
+		idx_in = [not '.' in row[1].ticker for row in univ_ti.iterrows()] # iterrows gives a tuple (index, row)
+		univ[t] = univ_ti.ix[idx_in,:]
+		

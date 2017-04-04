@@ -12,7 +12,7 @@ from factor_model import stock_ret_est
 from optimization_old import optimizer as opt
 
 
-def GenPosition(factor_return, factor_exposure, hasshort=False):
+def GenPosition(factor_return, factor_exposure, L=-0.2, U=0.2, hasshort=False):
     """
     :return: stock list and the corresponding weight in optimized portfolio
     """
@@ -22,9 +22,9 @@ def GenPosition(factor_return, factor_exposure, hasshort=False):
     w_old = np.ones([N_INS, 1]) / N_INS # Start from an evenly-split portfolio and assign no position-changing limits
 
     if hasshort:
-        w_opt = opt.optimizerlongshort(w_old, alpha=ret, sigma=sigma, L=-0.2, U=0.2)
+        w_opt = opt.optimizerlongshort(w_old, alpha=ret, sigma=sigma, U=U)
     else:
-        w_opt = opt.optimizer(w_old, alpha=ret, sigma=sigma, L=-0.2, U=0.2)
+        w_opt = opt.optimizer(w_old, alpha=ret, sigma=sigma, L=L, U=U)
     return stock_list, w_opt
 
 
@@ -57,11 +57,11 @@ def GenPortfolioReport(ptfl_full, report_file, pt=False):
         pe_ratio = stock.get_price_earnings_ratio()
         # last_tradetime = stock.get_trade_datetime()
         last_tradetime = 0
-        row_dict_list.append({'Ticker':ticker, 'Name':name, 'Prev Close':prev_close, 'Avg Daily Volume':avg_daily_volume, 'Market Cap':market_cap, 'PE ratio':pe_ratio, 'Last Tradetime':last_tradetime})
+        row_dict_list.append({'ticker':ticker, 'Name':name, 'Prev Close':prev_close, 'Avg Daily Volume':avg_daily_volume, 'Market Cap':market_cap, 'PE ratio':pe_ratio, 'Last Tradetime':last_tradetime})
 
     report = pd.DataFrame(row_dict_list)
-    report = pd.merge(ptfl_sel, report, on='Ticker')
-    report = report[['Ticker', 'Weight', 'Name', 'Prev Close', 'Avg Daily Volume', 'Market Cap', 'PE ratio']]
+    report = pd.merge(ptfl_sel, report, on='ticker')
+    report = report[['ticker', 'weight', 'Name', 'Prev Close', 'Avg Daily Volume', 'Market Cap', 'PE ratio']]
     if pt:
         print(report)
     report.to_csv(report_file)

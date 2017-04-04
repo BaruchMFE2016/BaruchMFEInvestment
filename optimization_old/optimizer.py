@@ -8,7 +8,7 @@ from cvxopt import solvers, matrix, sparse, spmatrix
 solvers.options['show_progress'] = False  # Turn off progress printing
 
 
-def optimizer(w_old, alpha, sigma, gamma=1, lambd=0, L=-1, U=1, dlt=1):
+def optimizer(w_old, alpha, sigma, gamma=1, lambd=0, L=0, U=1, dlt=1):
     """
     Optimizer given the projected alpha and sigma with a given utility function. Gives long-only portfolio
     :param w_old: numpy array n-by-1, weight of the last time period
