@@ -51,7 +51,7 @@ def backtest_single_period(univ, factor_exp_mat, ret_series, t, silent=True):
 	fx = pd.merge(fx, univ_fin[['ticker']], how='inner', on='ticker')
 
 	# Calculate position
-	stock_list, w_opt = GenPosition(fr, fx, U=0.1)
+	stock_list, w_opt = GenPosition(fr, fx, U=0.2)
 	w_opt = PositionFilter(w_opt) # filt away very small number in portfolio
 	ptfl_full = pd.DataFrame({"ticker": stock_list, "weight": list(w_opt.T[0])})
 	ptfl_full = pd.merge(ptfl_full, univ_fin[['ticker', 'log_ret']], how='inner', on='ticker')
