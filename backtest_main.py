@@ -134,6 +134,7 @@ if __name__ == '__main__':
 	#output the final portfolio
 	now = datetime.now()
 	nowstr = now.strftime('%Y%m%d_%H:%M:%S')
+	outputdir = ',/output/'
 	GenPortfolioReport(ptfl_fin, report_file=outputdir + 'portfolio_report_long_only'+nowstr+'.csv', pt=True)
 	pnl.to_csv('./output/pnl_series' + nowstr + '.csv')
 
