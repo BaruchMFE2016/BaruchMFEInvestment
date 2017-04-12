@@ -6,6 +6,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 import argparse
+import os
+import pickle
 
 from setup.univ_setup import *
 from factor_mining.combine_factors import *
@@ -89,21 +91,88 @@ def backtest_batch(univ, factor_exp_mat, ret_series, dstart, dend, silent=True):
 	return ptfl_lst[-1], pnl
 
 
+def backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, dend, rebalance, silent=True):
+	'''
+	Backtest with multi-period rebalancing
+	'''
+	datelst = sorted(univ.keys())
+	tin_lst, ptfl_lst, pnl_lst = [], [], []
+	count = 0
+	for ti in range(len(datelst)):
+		t = datelst[ti]
+		
+		if t < dstart or t > dend:
+			continue
+		
+		if not silent:
+			print(t)
+		
+		tin_lst.append(t)
+		
+		if count == 0:
+			# Do rebalance
+			ptfl, pnl_sp = backtest_single_period(univ, factor_exp_mat, ret_series, t, silent)
+			ptfl_lst.append(ptfl)
+			pnl_lst.append(pnl_sp)
+		else:
+			# Use prev portfolio
+			ptfl = ptfl_lst[-1].copy()
+			ptfl = ptfl[['ticker','weight']]
+			# Filt the available pool
+			univ_fin = univ[t]
+			univ_fin = univ_fin.dropna()
+			# Throw away penny stocks
+			univ_fin = filt_byval_single_period(univ_fin, 'price', 10)
+			# Throw away illiquid stocks
+			univ_fin = filt_byval_single_period(univ_fin, 'volume', 1500000)
+			# Throw away things in MA
+			univ_fin = filt_byval_single_period(univ_fin, 'inMA', 0)
+			
+			# Force clear what is not in the pool now and re-normalize the weight
+			ptfl = pd.merge(ptfl, univ_fin[['ticker', 'log_ret']], how='inner', on='ticker')
+#			 print(ptfl.head())
+			pnl_sp = np.dot(ptfl.weight, ptfl.log_ret)
+			
+			ptfl_lst.append(ptfl)
+			pnl_lst.append(pnl_sp)
+			
+			if not silent:
+				print('Pool size: %d' % univ_fin.shape[0])
+				print(ptfl[ptfl['weight'] != 0])
+				print('Period log pnl: %f' % pnl_sp)	
+		count -= 1
+		count %= rebalance
+		pnl = pd.DataFrame({'date': tin_lst, 'pnl': pnl_lst})
+		
+	return ptfl, pnl
+
+
+
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-s', type=str)
 	parser.add_argument('-e', type=str)
+	parser.add_argument('-d', type=str)
 	args = parser.parse_args()
 
 	start_str = args.s
 	ends_str = args.e
+	data_dir = args.d
 
 
 	### universe setup ###
-	print('universe setup')
-	big_table_dir = '/home/derek-qi/Documents/R3000_Data/data/r3000/big_table_full_v2.csv'
-	univ = univ_setup(big_table_dir)
-	filt_by_name(univ)
+	print('setup R3000 universe')
+	if os.path.exists(datadir + 'univ.pkl'):
+		print('use existing binary')
+		with open(datadir + 'univ.pkl', 'rb') as univ_fh:
+			univ = pickle.load(univ_fh)
+	else:
+		print('construct from csv')
+		big_table_dir = datadir + 'big_table_full_v2.csv'
+		univ = univ_setup(big_table_dir)
+		filt_by_name(univ)
+		with open(datadir + 'univ.pkl', 'wb') as fh:
+			pickle.dump(univ, fh)
 
 	### model configuration ###
 	# define and calculate all factors
@@ -120,6 +189,8 @@ if __name__ == '__main__':
 	
 	# Calc stock returns
 	ret_series = momentum(univ, 0, 1)
+	for k, r in ret_series.items():
+		r.columns = ['date', 'ticker', 'pct_return']
 
 	print('running backtest')
 	# dstart = datetime(2014, 1, 1)
@@ -143,28 +214,3 @@ if __name__ == '__main__':
 	pnl.columns = ['Date', 'Pnl']
 	pmfc = (cagr(pnl), vol(pnl), sharpe_ratio(pnl), max_drawdown(pnl), drawdown_length(pnl))
 	print('CAGR:%f \nVolatility:%f\nSharpe_ratio:%f\nmax drawdown: %f\ndrawdown length: %f\n' % pmfc)
-
-
-
-	# ### model fitting ###
-	# # Single period fit and build portfolio
-	# lookback = timedelta(weeks=104)
-	# dend = datetime(2017, 2, 10)
-	# dstart = dend - lookback
-	# # fit the factor return and mse
-	# fr, fr_mse = factor_model_fit(factor_exp_mat, ret_series, dstart, dend)
-
-	# ### current period pool selection and stock return estimation ###
-	
-	# ### portfolio optimization ###
-	# fx = factor_exp_mat[dend]
-	# fx = fx.dropna()
-	# stock_list, w_opt = GenPosition(fr, fx)
-	# ptfl_full = pd.DataFrame({"Ticker": stock_list, "Weight": list(w_opt.T[0])})
-	# now = datetime.now()
-	# nowstr = now.strftime('%Y%m%d_%H:%M:%S')
-	# GenPortfolioReport(ptfl_full, report_file=outputdir + 'portfolio_report_long_only'+nowstr+'.csv', pt=True)
-	# ptfl_full.to_csv(outputdir + 'portfolio_long_only.csv', index=False)
-    
-
-	# ### generate pnl (single period) ###

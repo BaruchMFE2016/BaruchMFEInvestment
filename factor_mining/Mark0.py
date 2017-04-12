@@ -24,4 +24,3 @@ def alpha_four_factors(univ):
 	factors['momentum'] = momentum(univ, 6, 25)
 
 	return factors
-

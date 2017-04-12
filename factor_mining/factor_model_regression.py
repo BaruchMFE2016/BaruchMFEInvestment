@@ -6,7 +6,6 @@ import numpy as np
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
-import statsmodels.api as sm
 
 
 LR = LinearRegression()
@@ -25,15 +24,18 @@ def factor_model_fit_single_period(fac_exp, ret, fitter=LR):
 
 	N_1 = ret.shape[0]
 	N_2, N_f = fac_exp.shape
-	if N_1 != N_2:
-		raise ValueError('Dimensions mismatch for return and factor exposure.')
+	# if N_1 != N_2:
+	# 	raise ValueError('Dimensions mismatch for return and factor exposure.')
+
+	factor_names = fac_exp.columns
+	return_name = 'pct_return'
 
 	merged = pd.merge(fac_exp, ret, how='inner', on='ticker', suffixes=('_x', '_r'))
 	merged = merged.replace([np.inf, -np.inf], np.nan)
 	merged = merged.dropna()
 	# FACTOR NAMES ARE HARDCODED FOR NOW!
-	X = np.array(merged[['vol10', 'momentum_x', 'market_cap', 'beta']])
-	r = np.array(merged['momentum_r'])
+	X = np.array(merged[['vol10', 'momentum', 'market_cap', 'beta']])
+	r = np.array(merged[return_name])
 
 	fitter.fit(X, r)
 	r_pred = fitter.predict(X)
