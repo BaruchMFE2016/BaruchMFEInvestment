@@ -206,7 +206,7 @@ if __name__ == '__main__':
 
 	# Calc stock returns
 	rebal = 4
-	ret_series = log_return(univ, rebal)
+	ret_series = log_return(univ, -rebal)
 	# for k, r in ret_series.items():
 	# 	r.columns = ['date', 'ticker', 'pct_return']
 	# ptfl_fin, pnl = backtest_batch(univ, factor_exp_mat, ret_series, dstart, dend, silent=False)

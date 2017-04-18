@@ -5,6 +5,7 @@ Baruch Investment Club project repository
 Python 3.5 or above with the following packages
 - numpy
 - pandas
+- scikit-learn
 - cvxopt
 - yahoo_finance
 
@@ -19,4 +20,6 @@ This project aims at implementing a commonly used factor model applied to the eq
 ./output/: saves the program output
 ./log/: saves console output
 
+IMPORTANT: the data needed is saved in Dropbox in directory  
+'./Russell 3000 Data SQZ/data'
 

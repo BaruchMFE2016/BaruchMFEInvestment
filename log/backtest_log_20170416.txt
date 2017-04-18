@@ -1,0 +1,1311 @@
+setup R3000 universe
+use existing binary
+==========================
+calculating factors
+standardize each factor
+winsorize each factor with +/- 3 standard deviation
+==========================
+running backtest
+2014-01-03 00:00:00
+Pool size: 610
+    ticker    weight   log_ret
+362   MTOR  0.200000  0.059921
+368   NESC  0.062339 -0.096270
+506   SRPT  0.137661 -0.050676
+541   TSRO  0.200000  0.130492
+554   UTHR  0.200000 -0.002879
+589   YRCW  0.200000 -0.345270
+Period log pnl: -0.044524
+2014-01-10 00:00:00
+Pool size: 813
+    ticker    weight   log_ret
+348   MTOR  0.200000 -0.016076
+354   NESC  0.062339  0.003955
+488   SRPT  0.137661  0.320837
+519   TSRO  0.200000  0.120300
+531   UTHR  0.200000 -0.000631
+566   YRCW  0.200000  0.152677
+Period log pnl: 0.095667
+2014-01-17 00:00:00
+Pool size: 789
+    ticker    weight   log_ret
+332   MTOR  0.200000 -0.108649
+338   NESC  0.062339 -0.097352
+465   SRPT  0.137661 -0.051333
+494   TSRO  0.200000  0.068302
+506   UTHR  0.200000 -0.030946
+540   YRCW  0.200000  0.172050
+Period log pnl: 0.007016
+2014-01-24 00:00:00
+Pool size: 720
+    ticker    weight   log_ret
+317   NESC  0.062339  0.047443
+439   SRPT  0.137661 -0.042560
+467   TSRO  0.200000 -0.109035
+479   UTHR  0.200000 -0.046830
+513   YRCW  0.200000  0.156808
+Period log pnl: -0.002713
+2014-01-31 00:00:00
+Pool size: 822
+    ticker  weight   log_ret
+200   CTRL     0.2 -0.077066
+274   EZPW     0.2  0.031379
+603   RCII     0.2  0.021814
+678   SRPT     0.2  0.058934
+735   TVIA     0.2 -0.083583
+Period log pnl: -0.009704
+2014-02-07 00:00:00
+Pool size: 846
+    ticker  weight   log_ret
+186   CTRL     0.2  0.065657
+256   EZPW     0.2  0.148968
+554   RCII     0.2 -0.018614
+627   SRPT     0.2  0.011534
+678   TVIA     0.2 -0.074817
+Period log pnl: 0.026546
+2014-02-14 00:00:00
+Pool size: 815
+    ticker  weight   log_ret
+165   CTRL     0.2 -0.154298
+232   EZPW     0.2 -0.046701
+501   RCII     0.2 -0.031256
+568   SRPT     0.2  0.065112
+613   TVIA     0.2  0.015240
+Period log pnl: -0.030381
+2014-02-21 00:00:00
+Pool size: 725
+    ticker  weight   log_ret
+149   CTRL     0.2  0.073924
+211   EZPW     0.2  0.007146
+455   RCII     0.2  0.036041
+517   SRPT     0.2  0.038987
+553   TVIA     0.2  0.087678
+Period log pnl: 0.048755
+2014-02-28 00:00:00
+Pool size: 819
+    ticker    weight   log_ret
+57    ANIK  0.005648  0.068231
+168   CONN  0.194352 -0.028618
+245   ELGX  0.200000  0.047731
+309  GDPMQ  0.200000  0.093172
+395   ITMN  0.200000  0.120000
+677   STRA  0.200000 -0.005879
+Period log pnl: 0.045828
+2014-03-07 00:00:00
+Pool size: 860
+    ticker    weight   log_ret
+53    ANIK  0.005648  0.005914
+157   CONN  0.194352 -0.096173
+231   ELGX  0.200000 -0.079337
+289  GDPMQ  0.200000 -0.012790
+368   ITMN  0.200000 -0.053985
+Period log pnl: -0.047881
+2014-03-14 00:00:00
+Pool size: 788
+    ticker    weight   log_ret
+51    ANIK  0.005648  0.004941
+146   CONN  0.194352  0.055698
+210   ELGX  0.200000 -0.001530
+262  GDPMQ  0.200000 -0.062914
+333   ITMN  0.200000  0.075309
+Period log pnl: 0.013026
+2014-03-21 00:00:00
+Pool size: 856
+    ticker    weight   log_ret
+138   CONN  0.194352  0.149049
+197   ELGX  0.200000 -0.024023
+245  GDPMQ  0.200000  0.124654
+313   ITMN  0.200000 -0.078118
+Period log pnl: 0.033471
+2014-03-28 00:00:00
+Pool size: 812
+    ticker    weight   log_ret
+98    BODY  0.200000  0.148745
+265   FCEL  0.200000  0.051075
+291   FRAN  0.119826  0.042422
+306   GEOS  0.080175 -0.059423
+428   LJPC  0.200000 -0.010337
+510    NUS  0.200000  0.016714
+Period log pnl: 0.041558
+2014-04-04 00:00:00
+Pool size: 844
+    ticker    weight   log_ret
+243   FCEL  0.200000 -0.029476
+267   FRAN  0.119826 -0.109928
+468    NUS  0.200000 -0.061023
+Period log pnl: -0.031272
+2014-04-11 00:00:00
+Pool size: 844
+    ticker    weight   log_ret
+236   FCEL  0.200000  0.045937
+258   FRAN  0.119826 -0.056744
+441    NUS  0.200000  0.083964
+Period log pnl: 0.019181
+2014-04-18 00:00:00
+Pool size: 716
+    ticker    weight   log_ret
+210   FCEL  0.200000 -0.045937
+227   FRAN  0.119826 -0.003734
+386    NUS  0.200000  0.015159
+Period log pnl: -0.006603
+2014-04-25 00:00:00
+Pool size: 783
+    ticker  weight   log_ret
+146   CLFD     0.2 -0.075496
+188   CVLT     0.2  0.041595
+290  GDPMQ     0.2 -0.034357
+433   MDSO     0.2 -0.048426
+643   SRPT     0.2 -0.017038
+Period log pnl: -0.026744
+2014-05-02 00:00:00
+Pool size: 868
+    ticker  weight   log_ret
+176   CVLT     0.2  0.009235
+271  GDPMQ     0.2 -0.072903
+408   MDSO     0.2 -0.087948
+601   SRPT     0.2 -0.117818
+Period log pnl: -0.053887
+2014-05-09 00:00:00
+Pool size: 849
+    ticker  weight   log_ret
+165   CVLT     0.2 -0.010648
+256  GDPMQ     0.2  0.068878
+388   MDSO     0.2  0.032325
+568   SRPT     0.2 -0.020476
+Period log pnl: 0.014016
+2014-05-16 00:00:00
+Pool size: 824
+    ticker  weight   log_ret
+156   CVLT     0.2  0.029651
+244  GDPMQ     0.2  0.021944
+375   MDSO     0.2  0.101531
+550   SRPT     0.2  0.080092
+Period log pnl: 0.046643
+2014-05-23 00:00:00
+Pool size: 773
+    ticker    weight   log_ret
+98    BLUE  0.200000  0.025407
+143   CLDX  0.200000  0.093942
+239  ESINQ  0.200000 -0.091502
+309   GTIV  0.200000 -0.003662
+377   JGWE  0.083219  0.026618
+483   NTLS  0.019309 -0.114499
+558   PTCT  0.097472  0.168666
+Period log pnl: 0.021282
+2014-05-30 00:00:00
+Pool size: 687
+    ticker    weight   log_ret
+119   CLDX  0.200000  0.035634
+199  ESINQ  0.200000  0.055350
+258   GTIV  0.200000  0.039559
+409   NTLS  0.019309 -0.001593
+468   PTCT  0.097472  0.034408
+Period log pnl: 0.029432
+2014-06-06 00:00:00
+Pool size: 778
+    ticker    weight   log_ret
+114   CLDX  0.200000  0.124658
+190  ESINQ  0.200000 -0.010494
+245   GTIV  0.200000 -0.020663
+390   NTLS  0.019309  0.059601
+448   PTCT  0.097472  0.027729
+Period log pnl: 0.022554
+2014-06-13 00:00:00
+Pool size: 752
+    ticker    weight   log_ret
+105   CLDX  0.200000 -0.021215
+178  ESINQ  0.200000 -0.059480
+370   NTLS  0.019309 -0.029216
+Period log pnl: -0.016703
+2014-06-20 00:00:00
+Pool size: 847
+    ticker  weight   log_ret
+109   BLUE     0.2 -0.032454
+380   INSM     0.2  0.040267
+420   KPTI     0.2  0.072370
+613   RCPT     0.2  0.011193
+717   TBBK     0.2  0.003367
+Period log pnl: 0.018949
+2014-06-27 00:00:00
+Pool size: 909
+    ticker  weight   log_ret
+103   BLUE     0.2  0.013609
+355   INSM     0.2  0.025305
+392   KPTI     0.2 -0.057843
+569   RCPT     0.2  0.052282
+660   TBBK     0.2  0.007535
+Period log pnl: 0.008178
+2014-07-04 00:00:00
+Pool size: 670
+    ticker  weight   log_ret
+288   INSM     0.2 -0.051267
+319   KPTI     0.2 -0.161466
+457   RCPT     0.2 -0.117959
+Period log pnl: -0.066138
+2014-07-11 00:00:00
+Pool size: 749
+    ticker  weight   log_ret
+274   INSM     0.2 -0.064644
+303   KPTI     0.2 -0.048449
+435   RCPT     0.2 -0.051766
+Period log pnl: -0.032972
+2014-07-18 00:00:00
+Pool size: 730
+    ticker  weight   log_ret
+46    AMSC     0.2  0.010638
+291   GIMO     0.2 -0.080723
+400    LEU     0.2  0.012924
+403     LL     0.2 -0.007218
+503   PBPB     0.2  0.010301
+Period log pnl: -0.010816
+2014-07-25 00:00:00
+Pool size: 711
+    ticker  weight   log_ret
+246   GIMO     0.2  0.014060
+342     LL     0.2 -0.034639
+431   PBPB     0.2 -0.014624
+Period log pnl: -0.007041
+2014-08-01 00:00:00
+Pool size: 772
+    ticker  weight   log_ret
+230   GIMO     0.2 -0.001747
+320     LL     0.2  0.034095
+Period log pnl: 0.006470
+2014-08-08 00:00:00
+Pool size: 741
+    ticker  weight   log_ret
+217   GIMO     0.2 -0.041952
+303     LL     0.2  0.001268
+Period log pnl: -0.008137
+2014-08-15 00:00:00
+Pool size: 683
+        ticker    weight   log_ret
+0    X1288453D  0.107245 -0.079214
+214       ECOM  0.200000  0.055105
+350       KATE  0.092755  0.028346
+525       RPTP  0.200000  0.000916
+534       SALE  0.200000  0.013438
+546       SEAS  0.200000  0.082764
+Period log pnl: 0.024579
+2014-08-22 00:00:00
+Pool size: 667
+        ticker    weight   log_ret
+0    X1288453D  0.107245  0.023345
+190       ECOM  0.200000 -0.024391
+314       KATE  0.092755 -0.006780
+467       RPTP  0.200000  0.009116
+475       SALE  0.200000  0.036586
+485       SEAS  0.200000  0.025327
+Period log pnl: 0.011202
+2014-08-29 00:00:00
+Pool size: 640
+        ticker    weight   log_ret
+0    X1288453D  0.107245  0.009120
+172       ECOM  0.200000  0.017743
+287       KATE  0.092755 -0.004028
+430       RPTP  0.200000 -0.021092
+438       SALE  0.200000 -0.056244
+448       SEAS  0.200000 -0.015023
+Period log pnl: -0.014319
+2014-09-05 00:00:00
+Pool size: 630
+        ticker    weight   log_ret
+0    X1288453D  0.107245  0.007481
+268       KATE  0.092755 -0.051277
+400       RPTP  0.200000  0.031922
+408       SALE  0.200000 -0.007401
+417       SEAS  0.200000  0.010685
+Period log pnl: 0.003087
+2014-09-12 00:00:00
+Pool size: 719
+    ticker    weight   log_ret
+161   CONN  0.022129 -0.097531
+295  GTATQ  0.177870 -0.138670
+340   INFI  0.200000 -0.063194
+346   INVE  0.200000  0.004647
+434   NETE  0.200000 -0.707282
+449   NPSP  0.200000 -0.186735
+Period log pnl: -0.217337
+2014-09-19 00:00:00
+Pool size: 778
+    ticker    weight   log_ret
+148   CONN  0.022129  0.021740
+273  GTATQ  0.177870  0.028270
+317   INFI  0.200000 -0.010811
+323   INVE  0.200000 -0.106833
+404   NETE  0.200000 -0.174523
+417   NPSP  0.200000  0.015362
+Period log pnl: -0.049851
+2014-09-26 00:00:00
+Pool size: 690
+    ticker    weight   log_ret
+138   CONN  0.022129  0.133271
+251  GTATQ  0.177870 -0.038176
+289   INFI  0.200000  0.022215
+378   NPSP  0.200000 -0.139199
+Period log pnl: -0.027238
+2014-10-03 00:00:00
+Pool size: 772
+    ticker    weight   log_ret
+132   CONN  0.022129 -0.152533
+241  GTATQ  0.177870  0.000000
+277   INFI  0.200000 -0.120355
+361   NPSP  0.200000 -0.034808
+Period log pnl: -0.034408
+2014-10-10 00:00:00
+Pool size: 744
+    ticker  weight   log_ret
+16    ADMS     0.2  0.002065
+123   CAMP     0.2  0.033203
+225   DWRE     0.2  0.096275
+258   EXAS     0.2 -0.034322
+629    TCS     0.2  0.073218
+Period log pnl: 0.034088
+2014-10-17 00:00:00
+Pool size: 828
+    ticker  weight   log_ret
+122   CAMP     0.2  0.033226
+249   EXAS     0.2 -0.008874
+606    TCS     0.2  0.000579
+Period log pnl: 0.004986
+2014-10-24 00:00:00
+Pool size: 718
+    ticker  weight   log_ret
+112   CAMP     0.2  0.048894
+218   EXAS     0.2  0.021416
+Period log pnl: 0.014062
+2014-10-31 00:00:00
+Pool size: 795
+    ticker  weight   log_ret
+107   CAMP     0.2  0.021550
+210   EXAS     0.2 -0.053329
+Period log pnl: -0.006356
+2014-11-07 00:00:00
+Pool size: 775
+    ticker  weight   log_ret
+87    BBSI     0.2 -0.110085
+146   CHUY     0.2 -0.011418
+361   ICPT     0.2 -0.059749
+593   RPRX     0.2 -0.080207
+602   SALE     0.2  0.046298
+Period log pnl: -0.043032
+2014-11-14 00:00:00
+Pool size: 707
+    ticker  weight   log_ret
+74    BBSI     0.2  0.014876
+126   CHUY     0.2  0.001836
+301   ICPT     0.2 -0.048584
+496   SALE     0.2 -0.037971
+Period log pnl: -0.013969
+2014-11-21 00:00:00
+Pool size: 701
+    ticker  weight   log_ret
+273   ICPT     0.2 -0.074650
+455   SALE     0.2  0.017469
+Period log pnl: -0.011436
+2014-11-28 00:00:00
+Pool size: 566
+    ticker  weight   log_ret
+235   ICPT     0.2 -0.000626
+385   SALE     0.2 -0.066328
+Period log pnl: -0.013391
+2014-12-05 00:00:00
+Pool size: 712
+    ticker   weight   log_ret
+81    BCEI  0.08762 -0.079172
+176   CWEI  0.20000 -0.079549
+228  ESINQ  0.20000 -0.196148
+267   FRAN  0.11238  0.030028
+419   NADL  0.20000 -0.229923
+446    OAS  0.20000 -0.144020
+Period log pnl: -0.133491
+2014-12-12 00:00:00
+Pool size: 743
+    ticker   weight   log_ret
+76    BCEI  0.08762  0.174483
+242   FRAN  0.11238  0.055657
+410    OAS  0.20000  0.330546
+Period log pnl: 0.087652
+2014-12-19 00:00:00
+Pool size: 903
+    ticker   weight   log_ret
+74    BCEI  0.08762  0.081607
+238   FRAN  0.11238  0.009685
+403    OAS  0.20000 -0.031974
+Period log pnl: 0.001844
+2014-12-26 00:00:00
+Pool size: 494
+    ticker   weight   log_ret
+53    BCEI  0.08762  0.020628
+169   FRAN  0.11238  0.006605
+286    OAS  0.20000  0.024957
+Period log pnl: 0.007541
+2015-01-02 00:00:00
+Pool size: 559
+    ticker   weight   log_ret
+133    CRK  0.20000 -0.216763
+198   FINL  0.00477  0.003690
+337    NBR  0.19523 -0.120687
+359    OCN  0.20000 -0.151272
+515   WATT  0.20000 -0.056022
+539   XONE  0.20000 -0.001813
+Period log pnl: -0.108718
+2015-01-09 00:00:00
+Pool size: 790
+    ticker   weight   log_ret
+129    CRK  0.20000 -0.144189
+193   FINL  0.00477 -0.014022
+325    NBR  0.19523 -0.040562
+347    OCN  0.20000 -0.452206
+494   WATT  0.20000 -0.207925
+518   XONE  0.20000 -0.154756
+Period log pnl: -0.199801
+2015-01-16 00:00:00
+Pool size: 771
+    ticker   weight   log_ret
+125    CRK  0.20000 -0.050220
+187   FINL  0.00477  0.009508
+317    NBR  0.19523  0.045067
+500   XONE  0.20000  0.050269
+Period log pnl: 0.008854
+2015-01-23 00:00:00
+Pool size: 679
+    ticker   weight   log_ret
+116    CRK  0.20000 -0.142771
+174   FINL  0.00477 -0.029640
+298    NBR  0.19523  0.034467
+Period log pnl: -0.021967
+2015-01-30 00:00:00
+Pool size: 786
+    ticker    weight   log_ret
+21    ADES  0.200001  0.433514
+82    BCEI  0.200000  0.125930
+169    CRK  0.199996  0.382092
+306     HA  0.200001 -0.026585
+410    LRN  0.200001  0.153548
+Period log pnl: 0.213699
+2015-02-06 00:00:00
+Pool size: 820
+    ticker    weight   log_ret
+20    ADES  0.200001  0.058753
+77    BCEI  0.200000 -0.028809
+158    CRK  0.199996  0.028312
+284     HA  0.200001 -0.011155
+382    LRN  0.200001 -0.001207
+Period log pnl: 0.009179
+2015-02-13 00:00:00
+Pool size: 777
+    ticker    weight   log_ret
+19    ADES  0.200001 -0.020379
+71    BCEI  0.200000  0.019639
+140    CRK  0.199996  0.009804
+251     HA  0.200001  0.001335
+Period log pnl: 0.002080
+2015-02-20 00:00:00
+Pool size: 683
+    ticker    weight   log_ret
+65    BCEI  0.200000 -0.083945
+126    CRK  0.199996 -0.167793
+227     HA  0.200001 -0.012616
+Period log pnl: -0.052870
+2015-02-27 00:00:00
+Pool size: 793
+    ticker   weight   log_ret
+166    CRK  0.02461 -0.063513
+184   CYTX  0.20000 -0.008969
+400     LL  0.20000 -0.442390
+688   TUBE  0.17539 -0.082155
+720    WAC  0.20000 -0.086412
+747    WTW  0.20000 -0.179325
+Period log pnl: -0.159391
+2015-03-06 00:00:00
+Pool size: 814
+    ticker   weight   log_ret
+152    CRK  0.02461 -0.135876
+167   CYTX  0.20000  0.077962
+362     LL  0.20000 -0.086793
+628   TUBE  0.17539 -0.057389
+656    WAC  0.20000 -0.024496
+Period log pnl: -0.020075
+2015-03-13 00:00:00
+Pool size: 817
+    ticker   weight   log_ret
+140    CRK  0.02461 -0.261426
+154   CYTX  0.20000 -0.008368
+337     LL  0.20000 -0.069110
+Period log pnl: -0.021929
+2015-03-20 00:00:00
+Pool size: 874
+    ticker   weight   log_ret
+136    CRK  0.02461  0.041797
+323     LL  0.20000  0.069437
+Period log pnl: 0.014916
+2015-03-27 00:00:00
+Pool size: 803
+    ticker  weight   log_ret
+16   ACIIQ     0.2 -0.088737
+46    ALTR     0.2 -0.029490
+167    CRK     0.2  0.084083
+272   FOLD     0.2 -0.000913
+551   PRTA     0.2  0.011561
+Period log pnl: -0.004699
+2015-04-03 00:00:00
+Pool size: 716
+    ticker  weight   log_ret
+36    ALTR     0.2  0.032415
+219   FOLD     0.2  0.107276
+450   PRTA     0.2 -0.036445
+Period log pnl: 0.020649
+2015-04-10 00:00:00
+Pool size: 765
+    ticker  weight   log_ret
+34    ALTR     0.2 -0.011295
+207   FOLD     0.2 -0.015709
+428   PRTA     0.2 -0.025241
+Period log pnl: -0.010449
+2015-04-17 00:00:00
+Pool size: 779
+    ticker  weight   log_ret
+33    ALTR     0.2 -0.073759
+201   FOLD     0.2  0.020619
+411   PRTA     0.2  0.037092
+Period log pnl: -0.003210
+2015-04-24 00:00:00
+Pool size: 765
+    ticker  weight   log_ret
+29    AERI     0.2 -0.317386
+33    AFMD     0.2 -0.349872
+277    GLF     0.2  0.070366
+681   TZOO     0.2  0.055087
+695   VLTC     0.2 -0.099217
+Period log pnl: -0.128204
+2015-05-01 00:00:00
+Pool size: 874
+    ticker  weight   log_ret
+258    GLF     0.2  0.047580
+632   TZOO     0.2 -0.005891
+646   VLTC     0.2 -0.090061
+Period log pnl: -0.009674
+2015-05-08 00:00:00
+Pool size: 868
+    ticker  weight   log_ret
+244    GLF     0.2 -0.032594
+Period log pnl: -0.006519
+2015-05-15 00:00:00
+Pool size: 790
+    ticker  weight   log_ret
+229    GLF     0.2 -0.026723
+Period log pnl: -0.005345
+2015-05-22 00:00:00
+Pool size: 760
+    ticker    weight   log_ret
+58    ARDX  0.200000 -0.007279
+107   CASC  0.200000  0.127700
+382     LL  0.200000 -0.030890
+459   NLNK  0.199999  0.025585
+620   SRPT  0.200000 -0.023149
+Period log pnl: 0.018393
+2015-05-29 00:00:00
+Pool size: 677
+    ticker    weight   log_ret
+93    CASC  0.200000  0.178904
+325     LL  0.200000  0.046453
+389   NLNK  0.199999  0.051490
+528   SRPT  0.200000  0.041665
+Period log pnl: 0.063703
+2015-06-05 00:00:00
+Pool size: 782
+    ticker    weight   log_ret
+90    CASC  0.200000 -0.052710
+310     LL  0.200000  0.005600
+373   NLNK  0.199999 -0.015752
+508   SRPT  0.200000  0.036033
+Period log pnl: -0.005366
+2015-06-12 00:00:00
+Pool size: 765
+    ticker    weight   log_ret
+86    CASC  0.200000  0.002574
+291     LL  0.200000 -0.036971
+352   NLNK  0.199999  0.000671
+482   SRPT  0.200000  0.091725
+Period log pnl: 0.011600
+2015-06-19 00:00:00
+Pool size: 859
+    ticker    weight   log_ret
+18    ADMS  0.158166 -0.023539
+23    ADVM  0.200000  0.012699
+31    AERI  0.200000 -0.108585
+74    ATRA  0.200000 -0.027183
+113  BTUUQ  0.200000 -0.138432
+465    MCF  0.041834  0.043079
+Period log pnl: -0.054221
+2015-06-26 00:00:00
+Pool size: 943
+    ticker    weight   log_ret
+18    ADMS  0.158166  0.016762
+23    ADVM  0.200000  0.011292
+31    AERI  0.200000 -0.038597
+71    ATRA  0.200000 -0.145384
+107  BTUUQ  0.200000 -0.202613
+431    MCF  0.041834 -0.040590
+Period log pnl: -0.074107
+2015-07-03 00:00:00
+Pool size: 733
+   ticker  weight   log_ret
+17   ADVM     0.2  0.013631
+24   AERI     0.2  0.029649
+58   ATRA     0.2  0.174415
+86  BTUUQ     0.2 -0.155935
+Period log pnl: 0.012352
+2015-07-10 00:00:00
+Pool size: 798
+   ticker  weight   log_ret
+17   ADVM     0.2  0.026117
+24   AERI     0.2  0.051462
+57   ATRA     0.2  0.100883
+Period log pnl: 0.035692
+2015-07-17 00:00:00
+Pool size: 755
+    ticker    weight   log_ret
+46    ANAC  0.200000  0.018999
+178   DEPO  0.200000  0.002765
+528   QLGC  0.184567 -0.027780
+545   RGLS  0.015433 -0.112316
+646   TIVO  0.200000 -0.103487
+727   XOMA  0.200000 -1.568458
+Period log pnl: -0.336897
+2015-07-24 00:00:00
+Pool size: 744
+    ticker    weight   log_ret
+43    ANAC  0.200000  0.006321
+465   QLGC  0.184567 -0.247424
+572   TIVO  0.200000 -0.111803
+641   XOMA  0.200000 -0.253909
+Period log pnl: -0.117544
+2015-07-31 00:00:00
+Pool size: 788
+    ticker  weight   log_ret
+40    ANAC     0.2 -0.051297
+544   TIVO     0.2 -0.008680
+611   XOMA     0.2  0.052490
+Period log pnl: -0.001497
+2015-08-07 00:00:00
+Pool size: 805
+    ticker  weight   log_ret
+38    ANAC     0.2 -0.039653
+509   TIVO     0.2  0.078946
+Period log pnl: 0.007859
+2015-08-14 00:00:00
+Pool size: 764
+    ticker  weight   log_ret
+252   FLDM     0.2 -0.027528
+371   KPTI     0.2  0.092129
+385     LL     0.2  0.097124
+661   TNET     0.2 -0.078173
+730   WRLD     0.2  0.038433
+Period log pnl: 0.024397
+2015-08-21 00:00:00
+Pool size: 753
+    ticker  weight   log_ret
+236   FLDM     0.2 -0.069335
+341   KPTI     0.2  0.070307
+354     LL     0.2 -0.034236
+601   TNET     0.2 -0.043862
+Period log pnl: -0.015425
+2015-08-28 00:00:00
+Pool size: 841
+    ticker  weight   log_ret
+231   FLDM     0.2 -0.072663
+332   KPTI     0.2 -0.011380
+344     LL     0.2 -0.044513
+583   TNET     0.2 -0.017257
+Period log pnl: -0.029162
+2015-09-04 00:00:00
+Pool size: 738
+    ticker  weight   log_ret
+219   FLDM     0.2  0.062353
+313   KPTI     0.2  0.067084
+324     LL     0.2  0.083270
+553   TNET     0.2  0.043460
+Period log pnl: 0.051233
+2015-09-11 00:00:00
+Pool size: 650
+    ticker  weight   log_ret
+26    AKBA     0.2  0.010648
+228   FLXN     0.2  0.064885
+569   TRVN     0.2  0.260486
+604   VTAE     0.2  0.025510
+636   ZUMZ     0.2  0.055828
+Period log pnl: 0.083472
+2015-09-18 00:00:00
+Pool size: 783
+    ticker  weight   log_ret
+24    AKBA     0.2 -0.068489
+217   FLXN     0.2 -0.273511
+538   TRVN     0.2 -0.159428
+568   VTAE     0.2 -0.024812
+599   ZUMZ     0.2  0.012845
+Period log pnl: -0.102679
+2015-09-25 00:00:00
+Pool size: 745
+    ticker  weight   log_ret
+21    AKBA     0.2 -0.074544
+206   FLXN     0.2 -0.270817
+506   TRVN     0.2 -0.100083
+535   VTAE     0.2 -0.213076
+565   ZUMZ     0.2 -0.014787
+Period log pnl: -0.134661
+2015-10-02 00:00:00
+Pool size: 831
+    ticker  weight   log_ret
+196   FLXN     0.2  0.046489
+486   TRVN     0.2 -0.012752
+515   VTAE     0.2  0.115670
+545   ZUMZ     0.2  0.160606
+Period log pnl: 0.062003
+2015-10-09 00:00:00
+Pool size: 757
+    ticker  weight   log_ret
+219   ESPR     0.2 -0.077009
+417     MG     0.2 -0.007572
+474    NUS     0.2  0.016510
+492   ONCE     0.2  0.068776
+499   OVAS     0.2  0.058654
+Period log pnl: 0.011872
+2015-10-16 00:00:00
+Pool size: 687
+    ticker  weight   log_ret
+191   ESPR     0.2 -0.032098
+406    NUS     0.2  0.038962
+423   ONCE     0.2  0.157365
+430   OVAS     0.2  0.076305
+Period log pnl: 0.048107
+2015-10-23 00:00:00
+Pool size: 713
+    ticker  weight   log_ret
+181   ESPR     0.2  0.069886
+385    NUS     0.2 -0.013515
+401   ONCE     0.2 -0.136935
+408   OVAS     0.2 -0.077846
+Period log pnl: -0.031682
+2015-10-30 00:00:00
+Pool size: 775
+    ticker  weight   log_ret
+173   ESPR     0.2  0.145902
+369    NUS     0.2 -0.088894
+389   OVAS     0.2 -0.058747
+Period log pnl: -0.000348
+2015-11-06 00:00:00
+Pool size: 783
+    ticker    weight   log_ret
+212   ECHO  0.048429 -0.058006
+246   FARO  0.200000 -0.071118
+263   FLDM  0.200000 -0.017648
+452     MW  0.200000 -0.183205
+667    TGH  0.151570 -0.091973
+675   TLRD  0.200000 -0.183202
+Period log pnl: -0.107784
+2015-11-13 00:00:00
+Pool size: 683
+    ticker   weight   log_ret
+219   FLDM  0.20000 -0.031143
+374     MW  0.20000  0.045005
+546    TGH  0.15157 -0.014070
+551   TLRD  0.20000  0.045002
+Period log pnl: 0.009640
+2015-11-20 00:00:00
+Pool size: 659
+    ticker   weight   log_ret
+347     MW  0.20000  0.043546
+499    TGH  0.15157  0.107506
+503   TLRD  0.20000  0.043554
+Period log pnl: 0.033715
+2015-11-27 00:00:00
+Pool size: 507
+    ticker   weight   log_ret
+266     MW  0.20000  0.014424
+389    TGH  0.15157 -0.028375
+392   TLRD  0.20000  0.014423
+Period log pnl: 0.001469
+2015-12-04 00:00:00
+Pool size: 714
+    ticker    weight   log_ret
+71    BLOX  0.199977 -0.037031
+147    CRR  0.079336 -0.036696
+322   INSY  0.120687  0.068844
+463   ONDK  0.200000 -0.115736
+532   RLYP  0.200000 -0.078500
+546   RYAM  0.200000 -0.146299
+Period log pnl: -0.070115
+2015-12-11 00:00:00
+Pool size: 688
+    ticker    weight   log_ret
+65    BLOX  0.199977  0.022169
+132    CRR  0.079336 -0.052197
+285   INSY  0.120687 -0.014737
+463   RLYP  0.200000  0.035731
+Period log pnl: 0.005660
+2015-12-18 00:00:00
+Pool size: 853
+    ticker    weight   log_ret
+64    BLOX  0.199977  0.015915
+128    CRR  0.079336  0.172699
+276   INSY  0.120687  0.005640
+447   RLYP  0.200000  0.034152
+Period log pnl: 0.024395
+2015-12-25 00:00:00
+Pool size: 537
+    ticker    weight   log_ret
+52    BLOX  0.199977 -0.032632
+106    CRR  0.079336 -0.067985
+220   INSY  0.120687  0.006307
+356   RLYP  0.200000 -0.019221
+Period log pnl: -0.015002
+2016-01-01 00:00:00
+Pool size: 521
+    ticker    weight   log_ret
+7     ADMS  0.200000 -0.145712
+216    GSM  0.200000 -0.166634
+410   ROVI  0.200000 -0.011470
+422    SCS  0.199999 -0.098956
+457   TIVO  0.200000 -0.011468
+Period log pnl: -0.086848
+2016-01-08 00:00:00
+Pool size: 776
+    ticker    weight   log_ret
+6     ADMS  0.200000  0.021419
+379   ROVI  0.200000  0.056078
+391    SCS  0.199999 -0.076003
+425   TIVO  0.200000  0.056078
+Period log pnl: 0.011515
+2016-01-15 00:00:00
+Pool size: 781
+    ticker    weight   log_ret
+6     ADMS  0.200000 -0.118733
+367   ROVI  0.200000  0.048735
+379    SCS  0.199999 -0.002416
+412   TIVO  0.200000  0.048733
+Period log pnl: -0.004736
+2016-01-22 00:00:00
+Pool size: 704
+    ticker    weight   log_ret
+5     ADMS  0.200000 -0.259128
+353   ROVI  0.200000  0.062007
+364    SCS  0.199999  0.030232
+395   TIVO  0.200000  0.062008
+Period log pnl: -0.020976
+2016-01-29 00:00:00
+Pool size: 732
+    ticker  weight   log_ret
+30    ALKS     0.2  0.004986
+218    EGL     0.2 -0.066564
+289   GLNG     0.2 -0.059751
+452   NEOS     0.2 -0.442979
+609     SM     0.2  0.010671
+Period log pnl: -0.110727
+2016-02-05 00:00:00
+Pool size: 728
+    ticker  weight   log_ret
+27    ALKS     0.2  0.008666
+261   GLNG     0.2 -0.115931
+547     SM     0.2 -0.346719
+Period log pnl: -0.090797
+2016-02-12 00:00:00
+Pool size: 725
+    ticker  weight   log_ret
+24    ALKS     0.2  0.033932
+242   GLNG     0.2  0.008287
+Period log pnl: 0.008444
+2016-02-19 00:00:00
+Pool size: 659
+    ticker  weight   log_ret
+22    ALKS     0.2  0.001191
+224   GLNG     0.2  0.093290
+Period log pnl: 0.018896
+2016-02-26 00:00:00
+Pool size: 707
+    ticker  weight   log_ret
+5     ABCO     0.2  0.012507
+146   CONN     0.2  0.122894
+239    FIT     0.2  0.056793
+269   GOGO     0.2  0.144799
+529     RH     0.2 -0.025552
+Period log pnl: 0.062288
+2016-03-04 00:00:00
+Pool size: 770
+    ticker  weight   log_ret
+4     ABCO     0.2 -0.040444
+136   CONN     0.2 -0.083965
+227    FIT     0.2  0.120716
+256   GOGO     0.2 -0.037458
+492     RH     0.2  0.015610
+Period log pnl: -0.005108
+2016-03-11 00:00:00
+Pool size: 724
+    ticker  weight   log_ret
+3     ABCO     0.2  0.056439
+130   CONN     0.2 -0.043024
+214    FIT     0.2 -0.009000
+243   GOGO     0.2 -0.069356
+459     RH     0.2 -0.072246
+Period log pnl: -0.027437
+2016-03-18 00:00:00
+Pool size: 777
+    ticker  weight   log_ret
+3     ABCO     0.2  0.012484
+125   CONN     0.2 -0.075462
+206    FIT     0.2  0.013812
+235   GOGO     0.2 -0.030459
+446     RH     0.2 -0.002958
+Period log pnl: -0.016517
+2016-03-25 00:00:00
+Pool size: 618
+    ticker  weight   log_ret
+21    AKRX     0.2 -0.037204
+141   CPXX     0.2  0.081272
+446   PTLA     0.2  0.049096
+447    PTX     0.2 -0.100541
+517   SRPT     0.2  0.079667
+Period log pnl: 0.014458
+2016-04-01 00:00:00
+Pool size: 748
+    ticker  weight   log_ret
+20    AKRX     0.2  0.094225
+135   CPXX     0.2  0.118457
+424   PTLA     0.2  0.105548
+492   SRPT     0.2  0.126752
+Period log pnl: 0.088997
+2016-04-08 00:00:00
+Pool size: 721
+    ticker  weight   log_ret
+19    AKRX     0.2  0.024882
+126   CPXX     0.2  0.147968
+402   PTLA     0.2  0.013434
+467   SRPT     0.2 -0.072210
+Period log pnl: 0.022815
+2016-04-15 00:00:00
+Pool size: 678
+    ticker  weight   log_ret
+16    AKRX     0.2  0.068665
+116   CPXX     0.2  0.044192
+378   PTLA     0.2  0.061850
+439   SRPT     0.2 -0.344562
+Period log pnl: -0.033971
+2016-04-22 00:00:00
+Pool size: 687
+    ticker  weight   log_ret
+3     AAOI     0.2 -0.034229
+157   CWEI     0.2  0.000552
+406   NGVC     0.2  0.000749
+555     SM     0.2  0.100523
+568   SRPT     0.2 -0.052174
+Period log pnl: 0.003084
+2016-04-29 00:00:00
+Pool size: 720
+    ticker  weight   log_ret
+3     AAOI     0.2 -0.058841
+144   CWEI     0.2 -0.036511
+506     SM     0.2 -0.070462
+518   SRPT     0.2  0.221027
+Period log pnl: 0.011043
+2016-05-06 00:00:00
+Pool size: 755
+    ticker  weight   log_ret
+2     AAOI     0.2 -0.143319
+139   CWEI     0.2  0.124625
+477     SM     0.2 -0.045076
+488   SRPT     0.2 -0.029819
+Period log pnl: -0.018718
+2016-05-13 00:00:00
+Pool size: 714
+    ticker  weight   log_ret
+132   CWEI     0.2  0.263141
+446     SM     0.2  0.053649
+457   SRPT     0.2  0.108557
+Period log pnl: 0.085069
+2016-05-20 00:00:00
+Pool size: 715
+    ticker  weight   log_ret
+9     ADRO     0.2  0.111929
+165   CWEI     0.2 -0.002721
+254   FOSL     0.2  0.017841
+257   FRAN     0.2 -0.006651
+426   NLNK     0.2  0.088885
+Period log pnl: 0.041857
+2016-05-27 00:00:00
+Pool size: 675
+    ticker  weight   log_ret
+6     ADRO     0.2  0.001706
+143   CWEI     0.2  0.013148
+216   FOSL     0.2  0.007550
+219   FRAN     0.2  0.000953
+368   NLNK     0.2  0.029985
+Period log pnl: 0.010668
+2016-06-03 00:00:00
+Pool size: 640
+    ticker  weight   log_ret
+6     ADRO     0.2  0.021923
+131   CWEI     0.2 -0.098851
+197   FOSL     0.2  0.004645
+200   FRAN     0.2 -0.037850
+328   NLNK     0.2 -0.019299
+Period log pnl: -0.025886
+2016-06-10 00:00:00
+Pool size: 688
+    ticker  weight   log_ret
+5     ADRO     0.2 -0.061929
+122   CWEI     0.2  0.046404
+185   FOSL     0.2  0.054799
+188   FRAN     0.2  0.068795
+311   NLNK     0.2 -0.093717
+Period log pnl: 0.002870
+2016-06-17 00:00:00
+Pool size: 756
+    ticker    weight   log_ret
+60    AXDX  0.001735 -0.061568
+175   CWEI  0.200000  0.194727
+212   EGRX  0.200000 -0.207794
+240   EXAS  0.200000  0.050655
+462   NVCR  0.198265 -0.026048
+620   SRPT  0.200000  0.064683
+Period log pnl: 0.015183
+2016-06-24 00:00:00
+Pool size: 818
+    ticker    weight   log_ret
+58    AXDX  0.001735  0.080865
+166   CWEI  0.200000 -0.061145
+202   EGRX  0.200000  0.080275
+224   EXAS  0.200000  0.064593
+429   NVCR  0.198265  0.139639
+574   SRPT  0.200000  0.089304
+Period log pnl: 0.062431
+2016-07-01 00:00:00
+Pool size: 753
+    ticker    weight   log_ret
+53    AXDX  0.001735  0.033943
+154   CWEI  0.200000  0.000354
+187   EGRX  0.200000  0.082051
+207   EXAS  0.200000  0.009701
+395   NVCR  0.198265 -0.045272
+533   SRPT  0.200000  0.110680
+Period log pnl: 0.031640
+2016-07-08 00:00:00
+Pool size: 599
+    ticker  weight   log_ret
+153   EGRX     0.2  0.101285
+169   EXAS     0.2  0.046374
+443   SRPT     0.2 -0.081001
+Period log pnl: 0.013332
+2016-07-15 00:00:00
+Pool size: 661
+    ticker  weight   log_ret
+114   CHRS     0.2  0.025508
+142    CRR     0.2 -0.083981
+153   CWEI     0.2  0.055873
+506   SAGE     0.2  0.049895
+639   XBIT     0.2  0.061608
+Period log pnl: 0.021781
+2016-07-22 00:00:00
+Pool size: 612
+    ticker  weight   log_ret
+97    CHRS     0.2  0.047177
+124    CRR     0.2  0.106938
+134   CWEI     0.2  0.192717
+436   SAGE     0.2  0.010758
+Period log pnl: 0.071518
+2016-07-29 00:00:00
+Pool size: 694
+    ticker  weight   log_ret
+118    CRR     0.2  0.007067
+408   SAGE     0.2 -0.019357
+Period log pnl: -0.002458
+2016-08-05 00:00:00
+Pool size: 738
+    ticker  weight   log_ret
+113    CRR     0.2  0.000704
+391   SAGE     0.2 -0.181140
+Period log pnl: -0.036087
+2016-08-12 00:00:00
+Pool size: 681
+    ticker    weight   log_ret
+13    ADXS  0.199997 -0.034437
+147   CPSI  0.200001 -0.071215
+148   CRAY  0.200001  0.012110
+185   DXPE  0.200001  0.091375
+310   INOV  0.200001  0.025471
+Period log pnl: 0.004661
+2016-08-19 00:00:00
+Pool size: 634
+    ticker    weight   log_ret
+9     ADXS  0.199997 -0.146757
+130   CRAY  0.200001  0.035476
+163   DXPE  0.200001 -0.061827
+270   INOV  0.200001  0.022899
+Period log pnl: -0.030041
+2016-08-26 00:00:00
+Pool size: 626
+    ticker    weight   log_ret
+9     ADXS  0.199997 -0.026554
+117   CRAY  0.200001  0.003865
+145   DXPE  0.200001 -0.022433
+243   INOV  0.200001  0.039942
+Period log pnl: -0.001036
+2016-09-02 00:00:00
+Pool size: 649
+    ticker    weight   log_ret
+9     ADXS  0.199997 -0.114858
+108   CRAY  0.200001 -0.056881
+Period log pnl: -0.034347
+2016-09-09 00:00:00
+Pool size: 588
+    ticker  weight   log_ret
+9     ADPT     0.2  0.072726
+18    AGIO     0.2  0.080830
+154   DVAX     0.2  0.007560
+213    GCO     0.2  0.037015
+546   WATT     0.2  0.290458
+Period log pnl: 0.097718
+2016-09-16 00:00:00
+Pool size: 714
+    ticker  weight   log_ret
+8     ADPT     0.2  0.019039
+16    AGIO     0.2  0.128828
+146   DVAX     0.2 -0.046241
+202    GCO     0.2  0.057677
+516   WATT     0.2 -0.039761
+Period log pnl: 0.023908
+2016-09-23 00:00:00
+Pool size: 639
+    ticker  weight   log_ret
+8     ADPT     0.2  0.052945
+16    AGIO     0.2 -0.003968
+136   DVAX     0.2 -0.084068
+189    GCO     0.2  0.020593
+483   WATT     0.2  0.058810
+Period log pnl: 0.008862
+2016-09-30 00:00:00
+Pool size: 650
+    ticker  weight   log_ret
+15    AGIO     0.2 -0.002464
+128   DVAX     0.2  0.030974
+462   WATT     0.2 -0.085668
+Period log pnl: -0.011432
+2016-10-07 00:00:00
+Pool size: 673
+    ticker  weight   log_ret
+27    ALNY     0.2  0.030179
+181   DVAX     0.2 -0.042479
+302   IRMD     0.2 -0.089128
+304   ITCI     0.2 -0.150416
+610    VEC     0.2 -0.012856
+Period log pnl: -0.052940
+2016-10-14 00:00:00
+Pool size: 605
+    ticker  weight   log_ret
+22    ALNY     0.2  0.037646
+156   DVAX     0.2  0.002889
+260   ITCI     0.2  0.046485
+Period log pnl: 0.017404
+2016-10-21 00:00:00
+Pool size: 602
+    ticker  weight   log_ret
+20    ALNY     0.2 -0.009176
+140   DVAX     0.2 -0.080043
+235   ITCI     0.2 -0.115588
+Period log pnl: -0.040961
+2016-10-28 00:00:00
+Pool size: 642
+    ticker  weight   log_ret
+20    ALNY     0.2 -0.073939
+216   ITCI     0.2 -0.068053
+Period log pnl: -0.028398
+2016-11-04 00:00:00
+Pool size: 715
+    ticker  weight   log_ret
+192   DPLO     0.2  0.157346
+212   ESND     0.2  0.148533
+266    GNC     0.2  0.084680
+593   SYNA     0.2  0.035857
+694   XENT     0.2  0.191055
+Period log pnl: 0.123494
+2016-11-11 00:00:00
+Pool size: 815
+    ticker  weight   log_ret
+179   DPLO     0.2  0.003412
+199   ESND     0.2  0.015400
+251    GNC     0.2  0.020611
+561   SYNA     0.2 -0.015552
+654   XENT     0.2 -0.056926
+Period log pnl: -0.006611
+2016-11-18 00:00:00
+Pool size: 760
+    ticker  weight   log_ret
+164   DPLO     0.2  0.023562
+182   ESND     0.2  0.053667
+233    GNC     0.2  0.041931
+516   SYNA     0.2  0.013189
+601   XENT     0.2 -0.060363
+Period log pnl: 0.014397
+2016-11-25 00:00:00
+Pool size: 559
+    ticker  weight   log_ret
+122   DPLO     0.2 -0.050488
+175    GNC     0.2 -0.141199
+Period log pnl: -0.038337
+2016-12-02 00:00:00
+Pool size: 741
+    ticker    weight   log_ret
+156    CRC  0.200000  0.057558
+297   HIIQ  0.200000  0.179406
+418   MTDR  0.126193  0.012009
+468   OPHT  0.073805  0.119590
+628   TLYS  0.200000  0.033462
+700    WPX  0.200000 -0.025975
+Period log pnl: 0.059232
+2016-12-09 00:00:00
+Pool size: 759
+    ticker    weight   log_ret
+141    CRC  0.200000 -0.015276
+266   HIIQ  0.200000 -0.037179
+375   MTDR  0.126193 -0.001927
+422   OPHT  0.073805 -2.010913
+571   TLYS  0.200000 -0.055936
+636    WPX  0.200000 -0.010173
+Period log pnl: -0.172372
+2016-12-16 00:00:00
+Pool size: 856
+    ticker    weight   log_ret
+136    CRC  0.200000 -0.009600
+254   HIIQ  0.200000  0.281984
+357   MTDR  0.126193 -0.017906
+546   TLYS  0.200000 -0.046523
+609    WPX  0.200000  0.021579
+Period log pnl: 0.047228
+2016-12-23 00:00:00
+Pool size: 639
+    ticker    weight   log_ret
+121    CRC  0.200000  0.131855
+220   HIIQ  0.200000  0.019803
+313   MTDR  0.126193  0.011714
+475   TLYS  0.200000 -0.018778
+527    WPX  0.200000 -0.028419
+Period log pnl: 0.022371
+2016-12-30 00:00:00
+Pool size: 462
+    ticker    weight   log_ret
+6     ACAD  0.086584  0.123775
+104    CRR  0.061240  0.034762
+176    GNC  0.000778  0.000000
+187   HIIQ  0.200000 -0.031297
+325   PTLA  0.200000  0.126264
+344    RHT  0.051408  0.057158
+361   SCMP  0.200000 -0.007407
+369   SGEN  0.199990  0.086711
+Period log pnl: 0.050637
+===========================
+CAGR:-0.322625 
+Volatility:0.447072
+Sharpe_ratio:-0.871290
+max drawdown: -0.807894
+drawdown length: 122
+
