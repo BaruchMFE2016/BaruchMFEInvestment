@@ -2,47 +2,7 @@ __author__ = 'Derek Qi'
 
 import numpy as np
 import sklearn.preprocessing as pp
-
-
-def winsorize(X, thresh=3, copy=True):
-	'''
-	Doing winsorization to a dataset along an axis
-	Truncate data with 
-
-	Parameters:
-	------------
-	X: array-like
-		dataset
-	thresh: int
-		threshold of cutting down features
-	copy: bool
-		default is True, set to false to do in-place
-
-	Return:
-	------------
-	X_wins: array-like
-		winsorized dataset
-	'''
-
-	X = np.asarray(X)
-	mean = np.mean(X, axis=0)
-	std = np.std(X, axis=0)
-	up_thresh = mean + thresh * std
-	down_thresh = mean - thresh * std
-
-	N, F = X.shape
-	if copy:
-		X_wins = X.copy()
-	else:
-		X_wins = X
-
-	for i in range(F):
-		f = X_wins[:,i]
-		ut, dt = up_thresh[i], down_thresh[i]
-		f[f > ut] = ut
-		f[f < dt] = dt
-
-	return X_wins
+from .robust import *
 
 
 def process_batch(fac_ex, processor):
@@ -69,6 +29,7 @@ def process_batch(fac_ex, processor):
 		fx = fx.dropna()
 		X = fx.iloc[:,2:]
 		if X.shape[0] > 0:
+			X_p = np.asarray(X_p)
 			X_p = processor(X)
 		else:
 			X_p = np.zeros(X.shape)
@@ -82,6 +43,6 @@ def process_batch(fac_ex, processor):
 if __name__ == '__main__':
 	X = np.random.normal(size=(10000, 2))
 	print(np.max(X, axis=0))
-
-	X_wins = winsorize(X, thresh=2)
+	print(np.median(X), np.median(np.abs(X - np.median(X))))
+	X_wins = winsorize(X, const=3)
 	print(np.max(X_wins, axis=0))

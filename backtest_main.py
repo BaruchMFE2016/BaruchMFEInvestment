@@ -12,12 +12,13 @@ import pickle
 from setup.univ_setup import *
 from factor_mining.combine_factors import *
 from factor_mining.factor_model_regression import *
+from factor_mining.factor_preprocessing import *
 
-from factor_model.stock_ret_est import GenReturn 
+from factor_mining.stock_ret_est import GenReturn 
 from GenPosition import *
 from performance_analysis.pa_core import *
 
-from factor_mining.factors.momentum import *
+from factor_mining.factors.stock_return import *
 
 from factor_mining.Mark0 import *
 
@@ -32,9 +33,6 @@ def backtest_single_period(univ, factor_exp_mat, ret_series, t, silent=True):
 	lookback = timedelta(weeks=104)
 	dend = t
 	dstart = dend - lookback
-
-	# Calc stock return
-	ret_series = momentum(univ, 0, 1)
 
 	# Fit single period factor return
 	fr, fr_mse = factor_model_fit(factor_exp_mat, ret_series, dstart, dend)
@@ -52,11 +50,16 @@ def backtest_single_period(univ, factor_exp_mat, ret_series, t, silent=True):
 	univ_fin = filt_byval_single_period(univ_fin, 'inMA', 0)
 	fx = pd.merge(fx, univ_fin[['ticker']], how='inner', on='ticker')
 
+	if 0:
+		fx.to_csv('./temp/factor_exposure_' + t.strftime('%Y%m%d') + '.csv', index=False)
+		fr.to_csv('./temp/factor_return_' + t.strftime('%Y%m%d') + '.csv', index=False)
+
 	# Calculate position
 	stock_list, w_opt = GenPosition(fr, fx, U=0.2)
 	w_opt = PositionFilter(w_opt) # filt away very small number in portfolio
 	ptfl_full = pd.DataFrame({"ticker": stock_list, "weight": list(w_opt.T[0])})
 	ptfl_full = pd.merge(ptfl_full, univ_fin[['ticker', 'log_ret']], how='inner', on='ticker')
+	ptfl_full.loc[ptfl_full.log_ret < -2.5, 'log_ret'] = 0 # Emergency process for stocks in MA for over 6 months
 	pnl_sp = np.dot(ptfl_full.weight, ptfl_full.log_ret)
 
 	if not silent:
@@ -130,7 +133,7 @@ def backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, de
 			
 			# Force clear what is not in the pool now and re-normalize the weight
 			ptfl = pd.merge(ptfl, univ_fin[['ticker', 'log_ret']], how='inner', on='ticker')
-#			 print(ptfl.head())
+			ptfl.loc[ptfl.log_ret < -2.5, 'log_ret'] = 0 # Emergency process for stocks in MA for over 6 months
 			pnl_sp = np.dot(ptfl.weight, ptfl.log_ret)
 			
 			ptfl_lst.append(ptfl)
@@ -162,13 +165,13 @@ if __name__ == '__main__':
 
 	### universe setup ###
 	print('setup R3000 universe')
-	if os.path.exists(datadir + 'univ.pkl'):
+	if os.path.exists(data_dir + 'univ.pkl'):
 		print('use existing binary')
-		with open(datadir + 'univ.pkl', 'rb') as univ_fh:
+		with open(data_dir + 'univ.pkl', 'rb') as univ_fh:
 			univ = pickle.load(univ_fh)
 	else:
 		print('construct from csv')
-		big_table_dir = datadir + 'big_table_full_v2.csv'
+		big_table_dir = data_dir + 'big_table_full_v3.csv'
 		univ = univ_setup(big_table_dir)
 		filt_by_name(univ)
 		with open(datadir + 'univ.pkl', 'wb') as fh:
@@ -176,28 +179,38 @@ if __name__ == '__main__':
 
 	### model configuration ###
 	# define and calculate all factors
+	print('==========================')
 	print('calculating factors')
 	factors = alpha_four_factors(univ)
 	# concat into factor exposure matrices
 	factor_exp_mat = combine_factors(factors)
+	# preprocessing
+	print('standardize each factor')
+	factor_exp_mat = process_batch(factor_exp_mat, pp.scale)
+	# factor_exp_mat = process_batch(factor_exp_mat, standardize)
+	print('winsorize each factor with +/- 3 standard deviation')
+	factor_exp_mat = process_batch(factor_exp_mat, winsorize_std)
 
 	# const setup
 	factor_names = [k for k in factors.keys()]
 	N_f = len(factor_names)
 	datelst = sorted(factor_exp_mat.keys())
 	N_T = len(datelst)
-	
-	# Calc stock returns
-	ret_series = momentum(univ, 0, 1)
-	for k, r in ret_series.items():
-		r.columns = ['date', 'ticker', 'pct_return']
 
+	print('==========================')
 	print('running backtest')
 	# dstart = datetime(2014, 1, 1)
 	# dend = datetime(2014, 1, 31)
 	dstart = datetime.strptime(start_str, '%Y-%m-%d')
 	dend = datetime.strptime(ends_str, '%Y-%m-%d')
-	ptfl_fin, pnl = backtest_batch(univ, factor_exp_mat, ret_series, dstart, dend, silent=False)
+
+	# Calc stock returns
+	rebal = 4
+	ret_series = log_return(univ, rebal)
+	# for k, r in ret_series.items():
+	# 	r.columns = ['date', 'ticker', 'pct_return']
+	# ptfl_fin, pnl = backtest_batch(univ, factor_exp_mat, ret_series, dstart, dend, silent=False)
+	ptfl_fin, pnl = backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, dend, rebalance=rebal, silent=False)
 
 	# plt.plot(pnl['pnl'])
 	# plt.show()
@@ -205,12 +218,20 @@ if __name__ == '__main__':
 	#output the final portfolio
 	now = datetime.now()
 	nowstr = now.strftime('%Y%m%d_%H:%M:%S')
-	outputdir = ',/output/'
-	GenPortfolioReport(ptfl_fin, report_file=outputdir + 'portfolio_report_long_only'+nowstr+'.csv', pt=True)
-	pnl.to_csv('./output/pnl_series' + nowstr + '.csv')
-
-
+	
+	outputdir = './output/'
+	# GenPortfolioReport(ptfl_fin, report_file=outputdir + 'portfolio_report_long_only'+nowstr+'.csv', pt=True)
+	
+	
 	# Do performance analysis
+	print('===========================')
 	pnl.columns = ['Date', 'Pnl']
 	pmfc = (cagr(pnl), vol(pnl), sharpe_ratio(pnl), max_drawdown(pnl), drawdown_length(pnl))
-	print('CAGR:%f \nVolatility:%f\nSharpe_ratio:%f\nmax drawdown: %f\ndrawdown length: %f\n' % pmfc)
+	print('CAGR:%f \nVolatility:%f\nSharpe_ratio:%f\nmax drawdown: %f\ndrawdown length: %d\n' % pmfc)
+
+	pnl['cumpnl'] = np.cumsum(pnl['Pnl'])
+	pnl.to_csv('./output/pnl_series_' + nowstr + '.csv')
+
+	plot_save_dir = outputdir
+	plot_nav(pnl, savedir=plot_save_dir)
+	

@@ -27,14 +27,15 @@ def factor_model_fit_single_period(fac_exp, ret, fitter=LR):
 	# if N_1 != N_2:
 	# 	raise ValueError('Dimensions mismatch for return and factor exposure.')
 
-	factor_names = fac_exp.columns
-	return_name = 'pct_return'
+	factor_names = fac_exp.columns[2:] # exclude date and ticker
+	return_name = ret.columns[-1]
 
-	merged = pd.merge(fac_exp, ret, how='inner', on='ticker', suffixes=('_x', '_r'))
+	merged = pd.merge(fac_exp, ret, how='inner', on='ticker')
 	merged = merged.replace([np.inf, -np.inf], np.nan)
 	merged = merged.dropna()
 	# FACTOR NAMES ARE HARDCODED FOR NOW!
-	X = np.array(merged[['vol10', 'momentum', 'market_cap', 'beta']])
+	# X = np.array(merged[['vol10', 'momentum', 'market_cap', 'beta']])
+	X = np.array(merged[factor_names])
 	r = np.array(merged[return_name])
 
 	fitter.fit(X, r)
