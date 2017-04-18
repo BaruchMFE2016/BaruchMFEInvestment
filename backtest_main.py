@@ -205,7 +205,7 @@ if __name__ == '__main__':
 	dend = datetime.strptime(ends_str, '%Y-%m-%d')
 
 	# Calc stock returns
-	rebal = 4
+	rebal = 1
 	ret_series = log_return(univ, -rebal)
 	# for k, r in ret_series.items():
 	# 	r.columns = ['date', 'ticker', 'pct_return']
@@ -225,12 +225,11 @@ if __name__ == '__main__':
 	
 	# Do performance analysis
 	print('===========================')
-	pnl.columns = ['Date', 'Pnl']
 	pmfc = (cagr(pnl), vol(pnl), sharpe_ratio(pnl), max_drawdown(pnl), drawdown_length(pnl))
 	print('CAGR:%f \nVolatility:%f\nSharpe_ratio:%f\nmax drawdown: %f\ndrawdown length: %d\n' % pmfc)
 
-	pnl['cumpnl'] = np.cumsum(pnl['Pnl'])
-	pnl.to_csv('./output/pnl_series_' + nowstr + '.csv')
+	pnl['cumpnl'] = np.cumsum(pnl['pnl'])
+	pnl.to_csv('./output/pnl_series_' + nowstr + '.csv', index=False)
 
 	plot_save_dir = outputdir
 	plot_nav(pnl, savedir=plot_save_dir)

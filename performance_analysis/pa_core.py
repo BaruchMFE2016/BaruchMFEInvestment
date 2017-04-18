@@ -10,19 +10,34 @@ from datetime import datetime, timedelta
 
 
 def annualize_factor(ptfl):
-	return 52
+	N_PERIOD = ptfl.shape[0]
+	if N_PERIOD <= 1:
+		raise('pnl series has less than 2 periods')
+
+	start_date = ptfl['date'][0]
+	end_date = ptfl['date'][N_PERIOD - 1]
+	diff_date = end_date - start_date
+	
+	period_per_year = N_PERIOD / (diff_date.days / 365.25) * (N_PERIOD) / (N_PERIOD-1)
+	return period_per_year
 
 
 def tot_ret(ptfl):
-	return np.exp(sum(ptfl['Pnl'])) - 1
+	'''
+	Gives percentage total return
+	'''
+	return np.exp(sum(ptfl['pnl'])) - 1
 
 
 def cagr(ptfl, annualize=True):
+	'''
+	Cumulative annual growth rate
+	'''
 	c = 1
 	if annualize:
 		c = annualize_factor(ptfl)
 
-	r = np.mean(ptfl['Pnl']) * c
+	r = np.mean(ptfl['pnl']) * c
 	cagr = np.exp(r) - 1
 	return cagr
 
@@ -32,7 +47,7 @@ def vol(ptfl, annualize=True):
 	if annualize:
 		c = annualize_factor(ptfl)
 
-	return np.std(ptfl['Pnl']) * np.sqrt(c)
+	return np.std(ptfl['pnl']) * np.sqrt(c)
 
 
 def sharpe_ratio(ptfl, bmk=None, annualize=True):
@@ -42,10 +57,10 @@ def sharpe_ratio(ptfl, bmk=None, annualize=True):
 
 
 	if bmk is None:
-		bmk = pd.DataFrame({'Pnl' : np.zeros(ptfl.shape[0])})
+		bmk = pd.DataFrame({'pnl' : np.zeros(ptfl.shape[0])})
 
-	excess_return = ptfl['Pnl'] - bmk['Pnl']
-	sharpe = np.mean(excess_return) / np.std(ptfl['Pnl']) * np.sqrt(c)
+	excess_return = ptfl['pnl'] - bmk['pnl']
+	sharpe = np.mean(excess_return) / np.std(ptfl['pnl']) * np.sqrt(c)
 	return sharpe
 
 
@@ -54,15 +69,15 @@ def information_ratio(ptfl, bmk=None, annualize=True):
 	if annualize:
 		c = annualize_factor(ptfl)
 	if bmk is None:
-		bmk = pd.DataFrame({'Pnl': np.zeros(ptfl.shape[0])})
+		bmk = pd.DataFrame({'pnl': np.zeros(ptfl.shape[0])})
 
-	excess_return = ptfl['Pnl'] - bmk['Pnl']
+	excess_return = ptfl['pnl'] - bmk['pnl']
 	ir = np.mean(excess_return) / np.std(excess_return) * np.sqrt(c)
 	return ir
 
 
 # def max_drawdown(ptfl):
-#	 pnl = ptfl['Pnl']
+#	 pnl = ptfl['pnl']
 #	 ptfl_v = np.cumsum(pnl)
 #	 max_dd = 0
 #	 for i in range(1, len(ptfl_v)):
@@ -74,12 +89,12 @@ def information_ratio(ptfl, bmk=None, annualize=True):
 
 
 def max_drawdown(ptfl):
-	pnl = ptfl['Pnl']
+	pnl = ptfl['pnl']
 	cpnl = np.cumsum(pnl)
 	return np.exp(min(cpnl)) - 1
 
 def drawdown_length(ptfl):
-	pnl = ptfl['Pnl']
+	pnl = ptfl['pnl']
 	return sum(np.cumsum(pnl) < 0)
 
 
@@ -89,7 +104,7 @@ def simple_pa(ptfl, annualize=True):
 
 
 def plot_nav(ptfl, show=True, savedir=None):
-	pnl = ptfl['Pnl']
+	pnl = ptfl['pnl']
 	cumlogret = np.cumsum(pnl)
 	nav = np.exp(cumlogret)
 	plt.plot(nav, label='Net Asset Value')
@@ -113,8 +128,8 @@ if __name__ == '__main__':
 	dt = timedelta(weeks=1)
 	dseries = [dstart + i * dt for i in range(n)]
 
-	ptfl_pnl = pd.DataFrame({'Date':dseries, 'Pnl':pnl_p})
-	bmk_pnl  = pd.DataFrame({'Date':dseries, 'Pnl':pnl_b})
+	ptfl_pnl = pd.DataFrame({'date':dseries, 'pnl':pnl_p})
+	bmk_pnl  = pd.DataFrame({'date':dseries, 'pnl':pnl_b})
 
 	# test functions
 	simple_pa(ptfl_pnl, annualize=True)
