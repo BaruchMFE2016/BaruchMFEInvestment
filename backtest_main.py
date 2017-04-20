@@ -174,7 +174,7 @@ if __name__ == '__main__':
 		big_table_dir = data_dir + 'big_table_full_v3.csv'
 		univ = univ_setup(big_table_dir)
 		filt_by_name(univ)
-		with open(datadir + 'univ.pkl', 'wb') as fh:
+		with open(data_dir + 'univ.pkl', 'wb') as fh:
 			pickle.dump(univ, fh)
 
 	### model configuration ###
