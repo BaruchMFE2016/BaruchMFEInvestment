@@ -23,14 +23,14 @@ from factor_mining.factors.stock_return import *
 from factor_mining.Mark0 import *
 
 
-def backtest_single_period(univ, factor_exp_mat, ret_series, t, silent=True):
+def backtest_single_period(univ, factor_exp_mat, ret_series, t, lb=104, silent=True):
 	'''
 	Do a single period backtest on univ[t]
 	t: datetime object that is one of the element in keys of univ
 	factor_exp_mat, ret_series: factor exposure and return time series
 	'''
 	# Set backtest params
-	lookback = timedelta(weeks=104)
+	lookback = timedelta(weeks=lb)
 	dend = t
 	dstart = dend - lookback
 
@@ -66,10 +66,37 @@ def backtest_single_period(univ, factor_exp_mat, ret_series, t, silent=True):
 		print('Pool size: %d' % univ_fin.shape[0])
 		print(ptfl_full[ptfl_full['weight'] != 0])
 		print('Period log pnl: %f' % pnl_sp)
-	return ptfl_full, pnl_sp
+	return ptfl_full, pnl_sp, np.mean(fr)
 
 
-def backtest_batch(univ, factor_exp_mat, ret_series, dstart, dend, silent=True):
+def backtest_multi_period(univ, factor_exp_mat, ret_series, dstart, dend, lb=104, silent=True):
+	'''
+	Do backtest from dstart to dend on the universe
+	'''
+	lookback = timedelta(weeks=lb)
+	datelst = sorted(univ.keys())
+	
+	bt_start = min(dstart - lookback, datelst[0])
+	# Fit all cross sectional parameters at once
+	fr_mp, fr_mse_mp = factor_model_fit(factor_exp_mat, ret_series, bt_start, dend)
+
+	tin_lst, ptfl_lst, pnl_lst = [], [], []
+	for ti in range(len(datelst)):
+		t = datelst[ti]
+		if t < dstart or t > dend:
+			continue
+
+		if not silent:
+			print(t)
+
+		tin_lst.append(t)
+		fr_sp = fr_mp[fr_mp.date]
+
+
+
+
+
+def backtest_batch(univ, factor_exp_mat, ret_series, dstart, dend, lb=104, silent=True):
 	'''
 	Run backtest in batch to portfolio from dstart to dend
 	'''
@@ -85,13 +112,17 @@ def backtest_batch(univ, factor_exp_mat, ret_series, dstart, dend, silent=True):
 			print(t)
 
 		tin_lst.append(t)
-		ptfl, pnl_sp = backtest_single_period(univ, factor_exp_mat, ret_series, t, silent)
+		ptfl, pnl_sp, fr_sp = backtest_single_period(univ, factor_exp_mat, ret_series, t, silent)
 		ptfl_lst.append(ptfl)
 		pnl_lst.append(pnl_sp)
+		if fr_lst is None:
+			fr_lst = fr_sp
+		else:
+			fr_lst = fr_lst.append(fr_sp)
 
 
 	pnl = pd.DataFrame({'date': tin_lst, 'pnl': pnl_lst})
-	return ptfl_lst[-1], pnl
+	return ptfl_lst[-1], pnl, fr_lst
 
 
 def backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, dend, rebalance, silent=True):
@@ -100,6 +131,7 @@ def backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, de
 	'''
 	datelst = sorted(univ.keys())
 	tin_lst, ptfl_lst, pnl_lst = [], [], []
+	fr_lst = pd.DataFrame()
 	count = 0
 	for ti in range(len(datelst)):
 		t = datelst[ti]
@@ -114,9 +146,13 @@ def backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, de
 		
 		if count == 0:
 			# Do rebalance
-			ptfl, pnl_sp = backtest_single_period(univ, factor_exp_mat, ret_series, t, silent)
+			ptfl, pnl_sp, fr_sp = backtest_single_period(univ, factor_exp_mat, ret_series, t, silent)
 			ptfl_lst.append(ptfl)
 			pnl_lst.append(pnl_sp)
+			if fr_lst.empty:
+				fr_lst = fr_sp
+			else:
+				fr_lst = fr_lst.append(fr_sp)
 		else:
 			# Use prev portfolio
 			ptfl = ptfl_lst[-1].copy()
@@ -147,7 +183,7 @@ def backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, de
 		count %= rebalance
 		pnl = pd.DataFrame({'date': tin_lst, 'pnl': pnl_lst})
 		
-	return ptfl, pnl
+	return ptfl, pnl, fr_lst
 
 
 
@@ -210,7 +246,7 @@ if __name__ == '__main__':
 	# for k, r in ret_series.items():
 	# 	r.columns = ['date', 'ticker', 'pct_return']
 	# ptfl_fin, pnl = backtest_batch(univ, factor_exp_mat, ret_series, dstart, dend, silent=False)
-	ptfl_fin, pnl = backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, dend, rebalance=rebal, silent=False)
+	ptfl_fin, pnl, fr_lst = backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, dend, rebalance=rebal, silent=False)
 
 	# plt.plot(pnl['pnl'])
 	# plt.show()
