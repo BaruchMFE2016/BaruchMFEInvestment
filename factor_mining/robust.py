@@ -35,8 +35,8 @@ def winsorize_std(X: np.ndarray, const=3):
     '''
     assert const > 0, '`const` must be a positive integer'
     X = check_nan_friendly_finite_array(X, copy=False)
-    mean = np.mean(X, axis=0)
-    std = np.std(X, axis=0)
+    mean = np.nanmean(X, axis=0)
+    std = np.sqrt(np.nanvar(X, axis=0))
     return np.clip(X, mean - const * std, mean + const * std)
 
 

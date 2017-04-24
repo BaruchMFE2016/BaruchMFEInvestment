@@ -25,15 +25,16 @@ def process_batch(fac_ex, processor):
 
 	for ti in range(N_T):
 		t = datelst[ti]
-		fx = fac_ex[t]
-		fx = fx.dropna()
-		X = fx.iloc[:,2:]
+		fx = fac_ex[t].copy()
+		# fx = fx.dropna()
+		factor_names = fx.columns[2:] # exclude date and ticker
+		X = fx.loc[:,factor_names]
 		if X.shape[0] > 0:
-			X_p = np.asarray(X_p)
+			X = np.asarray(X)
 			X_p = processor(X)
 		else:
 			X_p = np.zeros(X.shape)
-		fx.iloc[:,2:] = X_p
+		fx.loc[:,factor_names] = X_p
 		fx_lst.append(fx)
 
 	return dict(zip(datelst, fx_lst))
