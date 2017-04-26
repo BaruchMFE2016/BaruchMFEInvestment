@@ -63,7 +63,7 @@ def factor_model_fit(factor_exp, ret, dstart, dend, fitter=LR):
 
 	for ti in range(N_T):
 		t = datelst[ti]
-		if t < dstart or t > dend:
+		if t < dstart or t >= dend: # changed t > dend to t >= dend, because regression uses forward return, which is not available for the last period
 			continue
 
 		fac_exp_t = factor_exp[t]

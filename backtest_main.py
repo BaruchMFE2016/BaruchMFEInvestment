@@ -22,7 +22,6 @@ from factor_mining.factors.stock_return import *
 
 from factor_mining.Mark0 import *
 
-
 def backtest_single_period(univ, factor_exp_mat, ret_series, t, silent=True):
 	'''
 	Do a single period backtest on univ[t]
@@ -66,7 +65,7 @@ def backtest_single_period(univ, factor_exp_mat, ret_series, t, silent=True):
 		print('Pool size: %d' % univ_fin.shape[0])
 		print(ptfl_full[ptfl_full['weight'] != 0])
 		print('Period log pnl: %f' % pnl_sp)
-	return ptfl_full, pnl_sp
+	return ptfl_full, pnl_sp, np.mean(fr)
 
 
 def backtest_batch(univ, factor_exp_mat, ret_series, dstart, dend, silent=True):
@@ -75,6 +74,8 @@ def backtest_batch(univ, factor_exp_mat, ret_series, dstart, dend, silent=True):
 	'''
 	datelst = sorted(univ.keys())
 	tin_lst, ptfl_lst, pnl_lst = [], [], []
+	factor_names = factor_exp_mat[datelst[0]].columns[2:].tolist() # exclude date and ticker column
+	fr_df = pd.DataFrame(columns = factor_names)
 	for ti in range(len(datelst)):
 		t = datelst[ti]
 		
@@ -85,13 +86,15 @@ def backtest_batch(univ, factor_exp_mat, ret_series, dstart, dend, silent=True):
 			print(t)
 
 		tin_lst.append(t)
-		ptfl, pnl_sp = backtest_single_period(univ, factor_exp_mat, ret_series, t, silent)
+		ptfl, pnl_sp, fr_sp = backtest_single_period(univ, factor_exp_mat, ret_series, t, silent)
 		ptfl_lst.append(ptfl)
 		pnl_lst.append(pnl_sp)
+		fr_df = fr_df.append(fr_sp, ignore_index=True)
 
-
+	fr_df['date'] = tin_lst
+	fr_df = fr_df[['date'] + factor_names]
 	pnl = pd.DataFrame({'date': tin_lst, 'pnl': pnl_lst})
-	return ptfl_lst[-1], pnl
+	return ptfl_lst[-1], pnl, fr_df
 
 
 def backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, dend, rebalance, silent=True):
@@ -100,6 +103,8 @@ def backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, de
 	'''
 	datelst = sorted(univ.keys())
 	tin_lst, ptfl_lst, pnl_lst = [], [], []
+	factor_names = factor_exp_mat[datelst[0]].columns[2:].tolist() # exclude date and ticker column
+	fr_df = pd.DataFrame(columns = factor_names)
 	count = 0
 	for ti in range(len(datelst)):
 		t = datelst[ti]
@@ -114,9 +119,10 @@ def backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, de
 		
 		if count == 0:
 			# Do rebalance
-			ptfl, pnl_sp = backtest_single_period(univ, factor_exp_mat, ret_series, t, silent)
+			ptfl, pnl_sp, fr_sp = backtest_single_period(univ, factor_exp_mat, ret_series, t, silent)
 			ptfl_lst.append(ptfl)
 			pnl_lst.append(pnl_sp)
+			fr_df = fr_df.append(fr_sp, ignore_index=True)
 		else:
 			# Use prev portfolio
 			ptfl = ptfl_lst[-1].copy()
@@ -138,6 +144,7 @@ def backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, de
 			
 			ptfl_lst.append(ptfl)
 			pnl_lst.append(pnl_sp)
+			fr_df = fr_df.append(fr_sp, ignore_index=True)
 			
 			if not silent:
 				print('Pool size: %d' % univ_fin.shape[0])
@@ -145,9 +152,10 @@ def backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, de
 				print('Period log pnl: %f' % pnl_sp)	
 		count -= 1
 		count %= rebalance
-		pnl = pd.DataFrame({'date': tin_lst, 'pnl': pnl_lst})
-		
-	return ptfl, pnl
+	pnl = pd.DataFrame({'date': tin_lst, 'pnl': pnl_lst})
+	fr_df['date'] = tin_lst
+	fr_df = fr_df[['date'] + factor_names]
+	return ptfl, pnl, fr_df
 
 
 
@@ -209,8 +217,8 @@ if __name__ == '__main__':
 	ret_series = log_return(univ, -rebal)
 	# for k, r in ret_series.items():
 	# 	r.columns = ['date', 'ticker', 'pct_return']
-	# ptfl_fin, pnl = backtest_batch(univ, factor_exp_mat, ret_series, dstart, dend, silent=False)
-	ptfl_fin, pnl = backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, dend, rebalance=rebal, silent=False)
+	# ptfl_fin, pnl, fr_hist = backtest_batch(univ, factor_exp_mat, ret_series, dstart, dend, silent=False)
+	ptfl_fin, pnl, fr_hist = backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, dend, rebalance=rebal, silent=False)
 
 	# plt.plot(pnl['pnl'])
 	# plt.show()
@@ -230,6 +238,8 @@ if __name__ == '__main__':
 
 	pnl['cumpnl'] = np.cumsum(pnl['pnl'])
 	pnl.to_csv('./output/pnl_series_' + nowstr + '.csv', index=False)
+
+	fr_hist.to_csv('./output/fitted_factor_return_' + nowstr + '.csv', index=False)
 
 	plot_save_dir = outputdir
 	plot_nav(pnl, savedir=plot_save_dir)
