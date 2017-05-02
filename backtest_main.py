@@ -29,7 +29,7 @@ def backtest_single_period(univ, factor_exp_mat, ret_series, t, silent=True):
 	factor_exp_mat, ret_series: factor exposure and return time series
 	'''
 	# Set backtest params
-	lookback = timedelta(weeks=104)
+	lookback = timedelta(weeks=30)
 	dend = t
 	dstart = dend - lookback
 
@@ -39,14 +39,14 @@ def backtest_single_period(univ, factor_exp_mat, ret_series, t, silent=True):
 	fx = factor_exp_mat[dend]
 	fx = fx.dropna()
 	# Filt the available pool
-	univ_fin = univ[dend]
-	univ_fin = univ_fin.dropna()
-	# Throw away penny stocks
-	univ_fin = filt_byval_single_period(univ_fin, 'price', 10)
-	# Throw away illiquid stocks
-	univ_fin = filt_byval_single_period(univ_fin, 'volume', 1500000)
-	# Throw away things in MA
-	univ_fin = filt_byval_single_period(univ_fin, 'inMA', 0)
+	# univ_fin = univ[dend]
+	# univ_fin = univ_fin.dropna()
+	# # Throw away penny stocks
+	# univ_fin = filt_byval_single_period(univ_fin, 'price', 10)
+	# # Throw away illiquid stocks
+	# univ_fin = filt_byval_single_period(univ_fin, 'volume', 1500000)
+	# # Throw away things in MA
+	# univ_fin = filt_byval_single_period(univ_fin, 'inMA', 0)
 	fx = pd.merge(fx, univ_fin[['ticker']], how='inner', on='ticker')
 
 	if 0:
@@ -54,11 +54,13 @@ def backtest_single_period(univ, factor_exp_mat, ret_series, t, silent=True):
 		fr.to_csv('./temp/factor_return_' + t.strftime('%Y%m%d') + '.csv', index=False)
 
 	# Calculate position
-	stock_list, w_opt = GenPosition(fr, fx, U=0.2)
+	stock_list, w_opt = GenPosition(fr, fx, U=0.2) # Todo: modify this to be flexible. 4/30 Derek
 	w_opt = PositionFilter(w_opt) # filt away very small number in portfolio
+	
 	ptfl_full = pd.DataFrame({"ticker": stock_list, "weight": list(w_opt.T[0])})
 	ptfl_full = pd.merge(ptfl_full, univ_fin[['ticker', 'log_ret']], how='inner', on='ticker')
 	ptfl_full.loc[ptfl_full.log_ret < -2.5, 'log_ret'] = 0 # Emergency process for stocks in MA for over 6 months
+	
 	pnl_sp = np.dot(ptfl_full.weight, ptfl_full.log_ret)
 
 	if not silent:
@@ -67,7 +69,7 @@ def backtest_single_period(univ, factor_exp_mat, ret_series, t, silent=True):
 		print('Period log pnl: %f' % pnl_sp)
 	return ptfl_full, pnl_sp, np.mean(fr)
 
-
+# This is deprecated and will be removed in later versions, use backtest_multi_period_rebalance and set rebal = 1
 def backtest_batch(univ, factor_exp_mat, ret_series, dstart, dend, silent=True):
 	'''
 	Run backtest in batch to portfolio from dstart to dend
@@ -97,7 +99,7 @@ def backtest_batch(univ, factor_exp_mat, ret_series, dstart, dend, silent=True):
 	return ptfl_lst[-1], pnl, fr_df
 
 
-def backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, dend, rebalance, silent=True):
+def backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, dend, rebalance=1, silent=True):
 	'''
 	Backtest with multi-period rebalancing
 	'''
@@ -128,14 +130,14 @@ def backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, de
 			ptfl = ptfl_lst[-1].copy()
 			ptfl = ptfl[['ticker','weight']]
 			# Filt the available pool
-			univ_fin = univ[t]
-			univ_fin = univ_fin.dropna()
-			# Throw away penny stocks
-			univ_fin = filt_byval_single_period(univ_fin, 'price', 10)
-			# Throw away illiquid stocks
-			univ_fin = filt_byval_single_period(univ_fin, 'volume', 1500000)
-			# Throw away things in MA
-			univ_fin = filt_byval_single_period(univ_fin, 'inMA', 0)
+			# univ_fin = univ[t]
+			# univ_fin = univ_fin.dropna()
+			# # Throw away penny stocks
+			# univ_fin = filt_byval_single_period(univ_fin, 'price', 10)
+			# # Throw away illiquid stocks
+			# univ_fin = filt_byval_single_period(univ_fin, 'volume', 1500000)
+			# # Throw away things in MA
+			# univ_fin = filt_byval_single_period(univ_fin, 'inMA', 0)
 			
 			# Force clear what is not in the pool now and re-normalize the weight
 			ptfl = pd.merge(ptfl, univ_fin[['ticker', 'log_ret']], how='inner', on='ticker')
@@ -155,7 +157,7 @@ def backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, de
 	pnl = pd.DataFrame({'date': tin_lst, 'pnl': pnl_lst})
 	fr_df['date'] = tin_lst
 	fr_df = fr_df[['date'] + factor_names]
-	return ptfl, pnl, fr_df
+	return ptfl_lst, pnl, fr_df
 
 
 
@@ -185,6 +187,12 @@ if __name__ == '__main__':
 		with open(data_dir + 'univ.pkl', 'wb') as fh:
 			pickle.dump(univ, fh)
 
+	### Filt ###
+	filt_na(univ)
+	filt_byval(univ, 'price', 10)
+	filt_byval(univ, 'inMA', 0)
+	filt_byval(univ, 'volume', 1500000)
+
 	### model configuration ###
 	# define and calculate all factors
 	print('==========================')
@@ -207,21 +215,16 @@ if __name__ == '__main__':
 
 	print('==========================')
 	print('running backtest')
-	# dstart = datetime(2014, 1, 1)
-	# dend = datetime(2014, 1, 31)
+
 	dstart = datetime.strptime(start_str, '%Y-%m-%d')
 	dend = datetime.strptime(ends_str, '%Y-%m-%d')
 
 	# Calc stock returns
+	# Todo: This might be packed into backtest function. 4/30 Derek
 	rebal = 1
 	ret_series = log_return(univ, -rebal)
-	# for k, r in ret_series.items():
-	# 	r.columns = ['date', 'ticker', 'pct_return']
-	# ptfl_fin, pnl, fr_hist = backtest_batch(univ, factor_exp_mat, ret_series, dstart, dend, silent=False)
-	ptfl_fin, pnl, fr_hist = backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, dend, rebalance=rebal, silent=False)
 
-	# plt.plot(pnl['pnl'])
-	# plt.show()
+	ptfl_lst, pnl, fr_hist = backtest_multi_period_rebalance(univ, factor_exp_mat, ret_series, dstart, dend, rebalance=rebal, silent=False)
 
 	#output the final portfolio
 	now = datetime.now()

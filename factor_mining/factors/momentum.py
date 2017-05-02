@@ -28,7 +28,7 @@ def momentum(univ, head, tail):
 		p = pd.merge(p_head, p_tail, how='inner', on='ticker', suffixes=('_h', '_t'), )
 
 		p['momentum'] = (p.price_h - p.price_t) / p.price_t
-		p['date'] = univ[datelst[ti]].date.tolist()
+		p['date'] = p['date_h'].tolist()
 
 		momentum[ti] = p.ix[:,['date', 'ticker', 'momentum']]
 
