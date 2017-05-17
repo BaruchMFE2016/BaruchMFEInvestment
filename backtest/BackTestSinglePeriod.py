@@ -12,3 +12,4 @@ class BackTestSinglePeriod(object):
 
 	def calc_pnl(self, univ, factor_exp_mat, t, **kwargs):
 		assert False
+	

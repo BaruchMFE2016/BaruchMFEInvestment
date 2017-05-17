@@ -16,7 +16,7 @@ def nancov_2s(x:np.array, y:np.array):
 	xy = check_nan_friendly_finite_array(xy)
 	xy = xy[:,(~np.isnan(xy[0]) * ~np.isnan(xy[1]))]
 	x_new, y_new = xy[0], xy[1]
-	cov = np.dot((x_new - np.mean(x_new)) ** 2, (y_new - np.mean(y_new)) ** 2) / (x_new.shape[0] - 1)
+	cov = np.dot((x_new - np.mean(x_new)), (y_new - np.mean(y_new))) / (x_new.shape[0] - 1)
 	return cov
 
 def nancorr_2s(x:np.array, y:np.array):
@@ -33,15 +33,15 @@ def factor_correlation_single_period(univ_sp, factor_exp_mat_sp, demean=None):
 	if demean == 'industry':
 		merged = pd.merge(univ_sp[['date', 'ticker', demean, ret_name]], factor_exp_mat_sp, on='ticker', how='inner')
 		merged = merged.dropna()
-		demean_return = merged[ret_name] - merged.groupby(demean)[ret_name].transform('mean')
-		demean_return.name = 'demean_ret'
+		merged['demean_ret'] = (merged[ret_name] - merged.groupby(demean)[ret_name].transform(np.nanmean)) / merged.groupby(demean)[ret_name].transform(np.std)
+		ret_name = 'demean_ret'
 		# demean_return = pd.concat([merged['ticker'], demean_return], axis=1) # might be useless
-		corr = [nancorr_2s(merged[ret_name], merged[name]) for name in factor_names]
+		corr = [nancorr_2s(merged[ret_name] / np.sqrt(merged['vol10']), merged[name]) for name in factor_names]
 		
 	else:
 		merged = pd.merge(univ_sp[['date', 'ticker', ret_name]], factor_exp_mat_sp, on='ticker', how='inner')
 		merged = merged.dropna()
-		corr = [nancorr_2s(merged[ret_name], merged[name]) for name in factor_names]
+		corr = [nancorr_2s(merged[ret_name] / np.sqrt(merged['vol10']), merged[name]) for name in factor_names]
 
 	t = univ_sp.date.tolist()[0]
 	return dict(zip(['date'] + factor_names.tolist(), [t] + corr))

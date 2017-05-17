@@ -18,6 +18,7 @@ def momentum(univ, head, tail):
 	momentum = [0] * N_T
 	for ti in range(N_T):
 		t = datelst[ti]
+		u = univ[t].copy()
 		if ti < tail:
 			momentum[ti] = univ[datelst[ti]].ix[:,['date', 'ticker']]
 			momentum[ti]['momentum'] = np.nan
@@ -25,11 +26,12 @@ def momentum(univ, head, tail):
 
 		p_head = univ[datelst[ti - head]].ix[:,['date', 'ticker', 'price']]
 		p_tail = univ[datelst[ti - tail]].ix[:,['date', 'ticker', 'price']]
-		p = pd.merge(p_head, p_tail, how='inner', on='ticker', suffixes=('_h', '_t'), )
+		p = pd.merge(p_head, p_tail, how='inner', on='ticker', suffixes=('_h', '_t'))
 
 		p['momentum'] = (p.price_h - p.price_t) / p.price_t
 		p['date'] = p['date_h'].tolist()
-
+		p = pd.merge(u.ix[:,['date','ticker','vol10']], p.ix[:,['ticker','momentum']], on='ticker', how='inner')
+		p['momentum'] = p['momentum'] / p['vol10']
 		momentum[ti] = p.ix[:,['date', 'ticker', 'momentum']]
 
 	return dict(zip(datelst, momentum))

@@ -34,7 +34,7 @@ def backtest_single_period(univ, factor_exp_mat, ret_series, t, silent=True):
 	dstart = dend - lookback
 
 	# Fit single period factor return
-	fr, fr_mse = factor_model_fit(factor_exp_mat, ret_series, dstart, dend)
+	fr, fr_mse = factor_model_fit(univ, factor_exp_mat, ret_series, dstart, dend)
 
 	fx = factor_exp_mat[dend]
 	fx = fx.dropna()

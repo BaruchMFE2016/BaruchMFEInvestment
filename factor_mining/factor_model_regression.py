@@ -6,12 +6,14 @@ import numpy as np
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
+from .robust import check_nan_friendly_finite_array
+from pdb import set_trace as bp
 
 
 LR = LinearRegression()
 
 
-def factor_model_fit_single_period(fac_exp, ret, fitter=LR):
+def factor_model_fit_single_period(univ_sp, fac_exp, ret, fitter=LR, **kwargs):
 	'''
 	Takes a factor exposure matrix and a return snapshot and generate estimated
 	factor returns and covariance matrix by some fitting method
@@ -38,7 +40,14 @@ def factor_model_fit_single_period(fac_exp, ret, fitter=LR):
 	X = np.array(merged[factor_names])
 	r = np.array(merged[return_name])
 
-	fitter.fit(X, r)
+	if not 'weight' in kwargs.keys():
+		fitter.fit(X, r)
+	else:
+		bp()
+		w = 1 / np.array(univ_sp.loc[merged.ticker, kwargs['weight']])
+		w = check_nan_friendly_finite_array(w)
+		fitter.fit(X, r, sample_weight=w)
+	
 	r_pred = fitter.predict(X)
 	mse = mean_squared_error(r, r_pred)
 	coef = fitter.coef_
@@ -47,7 +56,7 @@ def factor_model_fit_single_period(fac_exp, ret, fitter=LR):
 
 
 
-def factor_model_fit(factor_exp, ret, dstart, dend, fitter=LR):
+def factor_model_fit(univ, factor_exp, ret, dstart, dend, fitter=LR, **kwargs):
 	'''
 	input: factor_exposure time series and stock return time series
 	fit starting time and end time
@@ -66,9 +75,10 @@ def factor_model_fit(factor_exp, ret, dstart, dend, fitter=LR):
 		if t < dstart or t >= dend: # changed t > dend to t >= dend, because regression uses forward return, which is not available for the last period
 			continue
 
-		fac_exp_t = factor_exp[t]
-		ret_t = ret[t]
-		fr, mse = factor_model_fit_single_period(fac_exp_t, ret_t, fitter)
+		univ_sp = univ[t].copy()
+		fac_exp_t = factor_exp[t].copy()
+		ret_t = ret[t].copy()
+		fr, mse = factor_model_fit_single_period(univ_sp, fac_exp_t, ret_t, fitter, **kwargs)
 		factor_return_lst.append(fr)
 		mse_lst.append(mse)
 		t_in.append(t.strftime('%Y/%m/%d'))
