@@ -14,8 +14,7 @@ class FactorMimicPtflSpcalc(BackTestSinglePeriod):
 
 	def get_config(self):
 		config = {}
-		config['Signal variable'] = self.signal
-		config['Selection range'] = self.sel_range
+		config['Factor Name'] = self.factor_name
 		config['Weighting'] = self.weighting
 		return config
 
@@ -28,16 +27,15 @@ class FactorMimicPtflSpcalc(BackTestSinglePeriod):
 		'''
 		ret_name = 'f_log_ret_1'
 		univ_sp, factor_exp_sp = univ[t].copy(), factor_exp_mat[t].copy()
+
+		if self.weighting:
+			w = np.diag(1 / factor_exp_sp[self.weighting])
+		else:
+			w = np.eye(factor_exp_sp.shape[0])
 		beta = np.asarray(factor_exp_sp[self.factor_name])
 		beta = beta.reshape(len(beta), 1)
-		merged = pd.merge(univ_sp, factor_exp_sp[['ticker', self.factor_name]], how='inner', on='ticker')
-		if self.weighting:
-			w = np.diag(merged[self.weighting])
-		else:
-			w = np.eye(merged.shape[0])
-			
 		h = (np.linalg.inv((beta.T).dot(w.dot(beta))).dot((beta.T).dot(w))).T
-		fmpfl = merged[['date', 'ticker', ret_name]]
+		fmpfl = factor_exp_sp[['date', 'ticker', ret_name]]
 		fmpfl['weight'] = h
 		pnl_sp = np.dot(fmpfl['weight'], fmpfl[ret_name])
 		ptfl_sp = fmpfl[['date', 'ticker', 'weight']]
