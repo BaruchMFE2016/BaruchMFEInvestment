@@ -5,6 +5,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 
 from .BackTestSinglePeriod import *
+from performance_analysis.pa_core import simple_pa
 
 class BackTest(object):
 	def __init__(self, univ:dict, factor_exp_mat:dict, daterange:list, sp_calc:BackTestSinglePeriod, rebal=1):
@@ -38,6 +39,10 @@ class BackTest(object):
 			if t < self.dstart or t > self.dend:
 				continue
 
+			if 'silent' in kwargs.keys():
+				if not kwargs['silent']:
+					print(t)
+
 			if count == 0:
 				ptfl_sp, pnl_sp = self.sp_calc.calc_pnl(self.univ, self.factor_exp_mat, t, **kwargs)
 			else:
@@ -57,6 +62,6 @@ class BackTest(object):
 		self.has_pnl = True
 		return ptfl_lst, pnl_lst
 
-	def simple_pa(self, **kwargs):
-		self.pa = simple_pa(self.pnl_lst)
+	def calc_pa(self, **kwargs):
+		self.pa = simple_pa(self.pnl_lst, **kwargs)
 		self.has_pa = True

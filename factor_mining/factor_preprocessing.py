@@ -5,7 +5,7 @@ import sklearn.preprocessing as pp
 from .robust import *
 
 
-def process_batch(fac_ex, processor):
+def process_batch(fac_ex, processor, **kwargs):
 	'''
 	Doing a process procedure on a series of factor exposure matrix
 
@@ -27,7 +27,10 @@ def process_batch(fac_ex, processor):
 		t = datelst[ti]
 		fx = fac_ex[t].copy()
 		# fx = fx.dropna()
-		factor_names = fx.columns[2:] # exclude date and ticker
+		if 'factor_names' in kwargs.keys():
+			factor_names = kwargs['factor_names']
+		else:
+			factor_names = fx.columns[2:] # exclude date and ticker
 		X = fx.loc[:,factor_names]
 		if X.shape[0] > 0:
 			X = np.asarray(X)

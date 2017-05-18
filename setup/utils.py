@@ -57,3 +57,7 @@ def merge(left, right, on='ticker', how='inner', **kwargs):
 		res_lst.append(res)
 
 	return dict(zip(k_left, res_lst))
+
+
+
+
