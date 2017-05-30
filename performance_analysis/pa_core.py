@@ -32,6 +32,7 @@ def tot_ret(ptfl):
 def cagr(ptfl, annualize=True):
 	'''
 	Cumulative annual growth rate
+	This number is in percentage
 	'''
 	c = 1
 	if annualize:
@@ -76,19 +77,19 @@ def information_ratio(ptfl, bmk=None, annualize=True):
 	return ir
 
 
-# def max_drawdown(ptfl):
-#	 pnl = ptfl['pnl']
-#	 ptfl_v = np.cumsum(pnl)
-#	 max_dd = 0
-#	 for i in range(1, len(ptfl_v)):
-#		 cur_max = max(ptfl_v[0:i])
-#		 cur_dd = cur_max - ptfl_v[i]
-#		 if cur_dd > max_dd:
-#			 max_dd = cur_dd
-#	 return max_dd
-
-
 def max_drawdown(ptfl):
+	 pnl = ptfl['pnl']
+	 ptfl_v = np.cumsum(pnl)
+	 max_dd = 0
+	 for i in range(1, len(ptfl_v)):
+		 cur_max = max(ptfl_v[0:i])
+		 cur_dd = cur_max - ptfl_v[i]
+		 if cur_dd > max_dd:
+			 max_dd = cur_dd
+	 return max_dd
+
+
+def min_wealth(ptfl):
 	pnl = ptfl['pnl']
 	cpnl = np.cumsum(pnl)
 	return np.exp(min(cpnl)) - 1
