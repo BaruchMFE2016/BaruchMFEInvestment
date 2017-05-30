@@ -12,7 +12,7 @@ from .ptfl_optim import PtflOptimizer
 from pdb import set_trace as bp
 
 LR = LinearRegression()
-optimzr = PtflOptimizer(U=0.2)
+optimzr = PtflOptimizer(U=0.2, L=-0.2)
 
 
 def get_factor_cov(fr, method, **kwargs):
@@ -109,9 +109,13 @@ class RegressionPtflSpcalc(BackTestSinglePeriod):
 		sigma_est = (fx.dot(fr_cov)).dot(fx.T) + D
 
 		### Step 3: use min-var optimization to calculate portfolio and pnl
+		has_short = False
+		if 'has_short' in kwargs.keys():
+			has_short = kwargs['has_short']
+
 		all_tickers = fx_sp['ticker'].tolist()
 		N_INS = len(all_tickers)
-		w_opt = optimzr.opt(alpha=alpha_est, sigma=sigma_est, w_old=np.ones([N_INS, 1]) / N_INS)
+		w_opt = optimzr.opt(alpha=alpha_est, sigma=sigma_est, w_old=np.ones([N_INS, 1]) / N_INS, has_short=has_short)
 		w_opt[abs(w_opt) < 1e-5] = 0
 		w_opt /= np.sum(w_opt)
 		ptfl_sp = pd.DataFrame({'date':fx_sp['date'].tolist(),\

@@ -30,8 +30,8 @@ def momentum(univ, head, tail):
 
 		p['momentum'] = (p.price_h - p.price_t) / p.price_t
 		p['date'] = p['date_h'].tolist()
-		p = pd.merge(u.ix[:,['date','ticker','vol10']], p.ix[:,['ticker','momentum']], on='ticker', how='inner')
-		p['momentum'] = p['momentum'] / p['vol10']
+		p = pd.merge(u.ix[:,['date','ticker','vol60']], p.ix[:,['ticker','momentum']], on='ticker', how='inner')
+		p['momentum'] = p['momentum'] / p['vol60']
 		momentum[ti] = p.ix[:,['date', 'ticker', 'momentum']]
 
 	return dict(zip(datelst, momentum))
