@@ -98,9 +98,16 @@ def drawdown_length(ptfl):
 	return sum(np.cumsum(pnl) < 0)
 
 
-def simple_pa(ptfl, annualize=True):
-	pmfc = (cagr(ptfl, annualize=annualize), vol(ptfl, annualize=annualize), sharpe_ratio(ptfl, annualize=annualize), max_drawdown(ptfl), drawdown_length(ptfl))
-	print('CAGR: %f\nVolatility: %f\nSharpe_ratio: %f\nmax drawdown: %f\ndrawdown length: %d\n' % pmfc)
+def simple_pa(ptfl, annualize=True, silent=False):
+	pfmc = {'CAGR': cagr(ptfl, annualize=annualize),\
+			'Volatility': vol(ptfl, annualize=annualize),\
+			'Sharpe': sharpe_ratio(ptfl, annualize=annualize),\
+			'Max_Drawdown': max_drawdown(ptfl),\
+			'Drawdown_Length': drawdown_length(ptfl)}
+	if not silent:
+		for k in ['CAGR', 'Volatility', 'Sharpe', 'Max_Drawdown', 'Drawdown_Length']:
+			print(k, ':\t', pfmc[k])
+	return pfmc
 
 
 def plot_nav(ptfl, show=True, savedir=None):

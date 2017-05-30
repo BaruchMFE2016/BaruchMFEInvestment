@@ -29,7 +29,7 @@ def log_return(univ, period=1):
 			p['log_return'] = np.log(p.price_h / p.price_t)
 		else:
 			p['log_return'] = np.log(p.price_t / p.price_h)
-		p['date'] = univ[datelst[ti]].date.tolist()
+		p['date'] = p['date_h'].tolist()
 
 		log_ret[ti] = p.ix[:,['date', 'ticker', 'log_return']]
 
@@ -60,7 +60,7 @@ def pct_return(univ, period=1):
 			p['pct_return'] = (p.price_h - p.price_t) / p.price_t
 		else:
 			p['pct_return'] = (p.price_h - p.price_t) / p.price_h
-		p['date'] = univ[datelst[ti]].date.tolist()
+		p['date'] = p['date_h'].tolist()
 
 		pct_ret[ti] = p.ix[:,['date', 'ticker', 'pct_return']]
 

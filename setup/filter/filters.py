@@ -9,7 +9,7 @@ from datetime import datetime
 
 def filt_na(univ):
 	'''
-	filter out na in a universe
+	filter out na and infinity values in a universe
 	'''
 	datelst = sorted(univ.keys())
 	N_T = len(datelst)
@@ -17,7 +17,9 @@ def filt_na(univ):
 	for ti in range(N_T):
 		t = datelst[ti]
 		univ_ti = univ[t]
+		univ_ti = univ_ti.replace([np.inf, -np.inf], np.nan)
 		univ_ti.dropna(inplace=True, how='any')
+		univ[t] = univ_ti
 
 
 def filt_byval(univ, varname, thrd, keep='above'):

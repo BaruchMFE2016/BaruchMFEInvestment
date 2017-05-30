@@ -30,7 +30,10 @@ def univ_setup(big_table_dir):
 		pass
 
 	datecol = big_table.date.unique()
-	datelst = [excel_date_trans(s) for s in datecol]
+	if datecol[0].find('/') != -1:
+		datelst = [excel_date_trans(s) for s in datecol]
+	else:
+		datelst = [datetime.strptime(dstr,'%Y-%m-%d') for dstr in datecol]
 
 	N_T = datecol.shape[0]
 	subtable = [0] * N_T
@@ -44,7 +47,7 @@ def univ_setup(big_table_dir):
 
 
 if __name__ == '__main__':
-	big_table_dir = '/home/derek-qi/Documents/R3000_Data/data/r3000/big_table_full.csv'
+	big_table_dir = '/home/derek-qi/Documents/R3000_Data/data/r3000/big_table_fullv4.csv'
 	r3000_univ = univ_setup(big_table_dir)
 
 	filt_na(r3000_univ)
