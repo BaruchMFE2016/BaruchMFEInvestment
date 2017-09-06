@@ -14,15 +14,20 @@ LR = LinearRegression()
 optimzr = PtflOptimizer(U=0.2, L=-0.2)
 
 
+def get_ewma_weights(n, halflife):
+    delta = 0.5 ** (1. / halflife)
+    w = delta ** np.arange(0, n, 1)
+    w /= np.sum(w)
+    return w
+
+
 def get_factor_cov(fr, method, **kwargs):
     N_t, N_f = fr.shape
     if method == 'EWMA':
-        assert 'hl' in kwargs.keys(), 'No halflife param given'
-        hl = kwargs['hl']
+        assert 'halflife' in kwargs.keys(), 'No halflife param given'
+        halflife = kwargs['halflife']
         # First get EWMA weights
-        delta = 0.5 ** (1. / hl)
-        w = delta ** np.arange(start=0, stop=N_t, step=1)
-        w /= np.sum(w)
+        w = get_ewma_weights(N_t, halflife)
 
         # Then calculate the variance and correlation
         mu = w.dot(fr)
@@ -35,12 +40,13 @@ def get_factor_cov(fr, method, **kwargs):
 
 
 class RegressionPtflSpcalc(BackTestSinglePeriod):
-    def __init__(self, all_factor_names, fitter=LR, optimzr=optimzr, weighting=None):
+    def __init__(self, all_factor_names, fitter=LR, optimzr=optimzr, weighting=None, smoothing='ewma'):
         self.all_factor_names = all_factor_names
         self.all_factor_returns = {}
         self.fitter = fitter
         self.optimzr = optimzr
         self.weighting = weighting
+        self.factor_return_smoothing = smoothing
         self.model_rsq = {}
 
     def get_config(self):
@@ -96,13 +102,18 @@ class RegressionPtflSpcalc(BackTestSinglePeriod):
                 # fr, mse = self.all_factor_returns[dt]['factor_returns'], self.all_factor_returns[dt]['mse']
 
         all_fr = np.asarray([self.all_factor_returns[dt]['factor_returns'] for dt in datelst])
-        fr_sp = np.mean(all_fr, axis=0)
+        if not self.factor_return_smoothing:
+            fr_sp = all_fr[-1:, ]
+        elif self.factor_return_smoothing == 'simple':
+            fr_sp = np.mean(all_fr, axis=0)
+        elif self.factor_return_smoothing == 'ewma':
+            fr_sp = np.asarray([np.sum(get_ewma_weights(n_lookback, 12) * all_fr[:, c]) for c in range(all_fr.shape[1])])  # do 3 month of half life
 
         ### Step 2: Generate estimates of stock returns and covariance
-        fr_cov = get_factor_cov(all_fr, method='EWMA', hl=120)
+        fr_cov = get_factor_cov(all_fr, method='EWMA', halflife=12)  # 3 month half life
         fx_sp = factor_exp_mat[t].copy()
         fx = np.asarray(fx_sp[self.all_factor_names])
-        D = np.eye(fx_sp.shape[0]) * self.all_factor_returns[dt]['mse'] # diagonal term of all same numbers
+        D = np.eye(fx_sp.shape[0]) * self.all_factor_returns[dt]['mse']  # diagonal term of all same numbers
         alpha_est = fx.dot(fr_sp)
         sigma_est = (fx.dot(fr_cov)).dot(fx.T) + D
         if 1:
