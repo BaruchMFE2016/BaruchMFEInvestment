@@ -3,14 +3,20 @@ __author__ = 'Derek Qi'
 import numpy as np
 import pandas as pd
 from datetime import datetime, timedelta
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet
 from sklearn.metrics import mean_squared_error, r2_score
 
 from factor_mining.robust import check_nan_friendly_finite_array
 from .BackTestSinglePeriod import BackTestSinglePeriod
 from .ptfl_optim import PtflOptimizer
 
+# Linear fitters that might be applied
 LR = LinearRegression()
+RR = Ridge()
+LS = Lasso()
+EN = ElasticNet()
+
+# Convex optimizer
 optimzr = PtflOptimizer(U=0.2, L=-0.2)
 
 
@@ -81,15 +87,17 @@ class RegressionPtflSpcalc(BackTestSinglePeriod):
         fr = self.fitter.coef_
         return fr, mse
 
-    def calc_pnl(self, univ, factor_exp_mat, t, n_lookback=30, **kwargs):
+    def gen_alpha_sigma(self, univ, factor_exp_mat, t, n_lookback=30, **kwargs):
         '''
-        Do a single period backtest on univ[t]
-        t: datetime object that is one of the element in keys of univ
-        factor_exp_mat, ret_series: factor exposure and return time series
+        Generate alpha(first moment) and sigma(second moment) estimation for portfolio optimization
+        Also calculate some metrics to determine how the model performs
+        
+        t: datetime object
+        univ, factor_exp_mat: dictionaries with universe and factor_exposure information
         '''
+
         ### Step 1: Get the estimated factor return and covariance
-        datelst = [t - timedelta(weeks=i) for i in range(1, n_lookback + 1)]
-        datelst = datelst[::-1]
+        datelst = [t - timedelta(weeks=i) for i in range(n_lookback, 0, -1)]
         ret_name = 'f_log_ret_1'
 
         for dt in datelst:
@@ -97,33 +105,37 @@ class RegressionPtflSpcalc(BackTestSinglePeriod):
                 fr, mse = self.est_factor_ret_mse(univ, factor_exp_mat, dt, **kwargs)
                 self.all_factor_returns[dt] = {'factor_returns': fr, 'mse': mse}
 
-            else:
-                pass
-                # fr, mse = self.all_factor_returns[dt]['factor_returns'], self.all_factor_returns[dt]['mse']
-
         all_fr = np.asarray([self.all_factor_returns[dt]['factor_returns'] for dt in datelst])
         if not self.factor_return_smoothing:
             fr_sp = all_fr[-1:, ]
         elif self.factor_return_smoothing == 'simple':
             fr_sp = np.mean(all_fr, axis=0)
         elif self.factor_return_smoothing == 'ewma':
-            fr_sp = np.asarray([np.sum(get_ewma_weights(n_lookback, 12) * all_fr[:, c]) for c in range(all_fr.shape[1])])  # do 3 month of half life
+            fr_sp = np.asarray([np.sum(get_ewma_weights(n_lookback, 13) * all_fr[:, c]) for c in range(all_fr.shape[1])])  # do 3 month of half life
 
         ### Step 2: Generate estimates of stock returns and covariance
-        fr_cov = get_factor_cov(all_fr, method='EWMA', halflife=12)  # 3 month half life
+        fr_cov = get_factor_cov(all_fr, method='EWMA', halflife=13)  # 3 month half life
         fx_sp = factor_exp_mat[t].copy()
         fx = np.asarray(fx_sp[self.all_factor_names])
         D = np.eye(fx_sp.shape[0]) * self.all_factor_returns[dt]['mse']  # diagonal term of all same numbers
         alpha_est = fx.dot(fr_sp)
         sigma_est = (fx.dot(fr_cov)).dot(fx.T) + D
-        if 1:
+        if kwargs.get('r_square'):
             rsq = r2_score(fx_sp[ret_name], alpha_est)
             self.model_rsq[t] = rsq
 
+        return alpha_est, sigma_est
+
+    def calc_pnl(self, univ, factor_exp_mat, t, n_lookback=30, **kwargs):
+        '''
+        Do a single period backtest on univ[t]
+        t: datetime object that is one of the element in keys of univ
+        factor_exp_mat, ret_series: factor exposure and return time series
+        '''
+        alpha_est, sigma_est = self.gen_alpha_sigma(univ, factor_exp_mat, t, n_lookback, **kwargs)        
+        
         ### Step 3: use min-var optimization to calculate portfolio and pnl
-        has_short = False
-        if 'has_short' in kwargs.keys():
-            has_short = kwargs['has_short']
+        has_short = kwargs.get('has_short') or False
 
         all_tickers = fx_sp['ticker'].tolist()
         N_INS = len(all_tickers)
