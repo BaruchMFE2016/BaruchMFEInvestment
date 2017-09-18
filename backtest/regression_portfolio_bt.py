@@ -9,7 +9,9 @@ from sklearn.metrics import mean_squared_error, r2_score
 from factor_mining.robust import check_nan_friendly_finite_array
 from .BackTestSinglePeriod import BackTestSinglePeriod
 from .ptfl_optim import PtflOptimizer
+from .regression_portfolio import get_ewma_weights, get_factor_cov
 
+from pdb import set_trace
 
 # Linear fitters that might be applied
 LR = LinearRegression()
@@ -20,33 +22,7 @@ EN = ElasticNet()
 # Convex optimizer
 optimzr = PtflOptimizer(U=0.2, L=-0.2)
 
-
-def get_ewma_weights(n, halflife):
-    delta = 0.5 ** (1. / halflife)
-    w = delta ** np.arange(0, n, 1)
-    w /= np.sum(w)
-    return w
-
-
-def get_factor_cov(fr, method, **kwargs):
-    N_t, N_f = fr.shape
-    if method == 'EWMA':
-        assert 'halflife' in kwargs.keys(), 'No halflife param given'
-        halflife = kwargs['halflife']
-        # First get EWMA weights
-        w = get_ewma_weights(N_t, halflife)
-
-        # Then calculate the variance and correlation
-        mu = w.dot(fr)
-        var = w.dot(fr**2) - mu ** 2
-        fr_nor_w = ((fr - mu) / np.sqrt(var)) * np.sqrt(w[:, None])
-        corr = (fr_nor_w.T).dot(fr_nor_w)  # Estimated factor correlation
-        D = np.diag(np.sqrt(var))  # Estimated single std
-        cov = D.dot(corr).dot(D)  # Estimated covariance matrix
-        return cov
-
-
-class RegressionPtflSpcalc(BackTestSinglePeriod):
+class RegressionPtflBTSpcalc(BackTestSinglePeriod):
     def __init__(self, all_factor_names, fitter=LR, optimzr=optimzr, weighting=None, smoothing='ewma'):
         self.all_factor_names = all_factor_names
         self.all_factor_returns = {}
@@ -63,20 +39,20 @@ class RegressionPtflSpcalc(BackTestSinglePeriod):
         return config
 
     def get_func_name(self):
-        return 'Regression Portfolio'
+        return 'Regression Portfolio Batch Train'
 
-    def est_factor_ret_mse(self, univ, factor_exp_mat, t, **kwargs):
+    def est_factor_ret_mse(self, univ, factor_exp_mat, datelst, **kwargs):
         '''
         Cross sectional fit on a single period of the data
         '''
         # print('calculate regression coef for time ', datetime.strftime(t, '%Y%m%d'))
         ret_name = 'f_log_ret_1'
-        # u_sp = univ[t].copy()
-        factor_exp_sp = factor_exp_mat[t].copy()
+        factor_exp_batch = pd.concat(factor_exp_mat[t] for t in datelst)
 
-        X = np.array(factor_exp_sp[self.all_factor_names])
-        r = np.array(factor_exp_sp[ret_name])
+        X = np.array(factor_exp_batch[self.all_factor_names])
+        r = np.array(factor_exp_batch[ret_name])
 
+        # XXX
         if self.weighting is None:
             self.fitter.fit(X, r)
         else:
@@ -100,21 +76,15 @@ class RegressionPtflSpcalc(BackTestSinglePeriod):
         ### Step 1: Get the estimated factor return and covariance
         datelst = [t - timedelta(weeks=i) for i in range(n_lookback, 0, -1)]
         ret_name = 'f_log_ret_1'
-
+        
         for dt in datelst:
             if not dt in self.all_factor_returns.keys():
-                fr, mse = self.est_factor_ret_mse(univ, factor_exp_mat, dt, **kwargs)
+                fr, mse = self.est_factor_ret_mse(univ, factor_exp_mat, [dt - timedelta(weeks=i) for i in range(n_lookback, 0, -1)], **kwargs)
                 self.all_factor_returns[dt] = {'factor_returns': fr, 'mse': mse}
-
-        all_fr = np.asarray([self.all_factor_returns[dt]['factor_returns'] for dt in datelst])
-        if not self.factor_return_smoothing:
-            fr_sp = all_fr[-1, :]
-        elif self.factor_return_smoothing == 'simple':
-            fr_sp = np.mean(all_fr, axis=0)
-        elif self.factor_return_smoothing == 'ewma':
-            fr_sp = np.asarray([np.sum(get_ewma_weights(n_lookback, 13) * all_fr[:, c]) for c in range(all_fr.shape[1])])  # do 3 month of half life
-
+       
         ### Step 2: Generate estimates of stock returns and covariance
+        all_fr = np.asarray([self.all_factor_returns[dt]['factor_returns'] for dt in datelst])
+        fr_sp = fr
         fr_cov = get_factor_cov(all_fr, method='EWMA', halflife=13)  # 3 month half life
         fx_sp = factor_exp_mat[t].copy()
         fx = np.asarray(fx_sp[self.all_factor_names])
@@ -135,7 +105,6 @@ class RegressionPtflSpcalc(BackTestSinglePeriod):
         '''
         ret_name = 'f_log_ret_1'
         alpha_est, sigma_est = self.gen_alpha_sigma(univ, factor_exp_mat, t, n_lookback, **kwargs)        
-
         ### Step 3: use min-var optimization to calculate portfolio and pnl
         has_short = kwargs.get('has_short') or False
 

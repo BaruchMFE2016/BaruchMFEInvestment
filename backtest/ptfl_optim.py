@@ -48,7 +48,7 @@ class PtflOptimizer(object):
 		alpha_m, sigma_m = matrix(alpha), matrix(sigma)
 		N_INS = alpha_m.size[0]
 
-		# Tool matices
+		# Tool matrices
 		zero_m = matrix(0.0, (N_INS, N_INS))
 		I = matrix(np.eye(N_INS))
 		neg_I = - matrix(np.eye(N_INS))

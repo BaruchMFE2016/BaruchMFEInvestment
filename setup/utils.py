@@ -39,11 +39,7 @@ def merge(left, right, on='ticker', how='inner', **kwargs):
     k_right = sorted(right.keys())
     assert (k_left > k_right) - (k_left < k_right) == 0, 'Dict keys do not have 1-1 match'
 
-    left_cols, right_cols = None, None
-    if 'left_cols' in kwargs.keys():
-        left_cols = kwargs['left_cols']
-    if 'right_cols' in kwargs.keys():
-        right_cols = kwargs['right_cols']
+    left_cols, right_cols = kwargs.get('left_cols'), kwargs.get('right_cols')
 
     res_lst = []
     for k in k_left:
