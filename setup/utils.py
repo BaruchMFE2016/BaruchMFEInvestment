@@ -58,4 +58,4 @@ def stack(univ, **kwargs):
     ''' stack the dataframes saved in a dict '''
     columns = get_val(univ, 0).columns
     result = pd.concat(univ.values()).sort(['date', 'ticker'])
-    return result[columns]
+    return result[columns].copy()
