@@ -57,5 +57,5 @@ def merge(left, right, on='ticker', how='inner', **kwargs):
 def stack(univ, **kwargs):
     ''' stack the dataframes saved in a dict '''
     columns = get_val(univ, 0).columns
-    result = pd.concat(univ.values()).sort(['date', 'ticker'])
+    result = pd.concat(univ.values()).sort_values(['date', 'ticker'])
     return result[columns].copy()
