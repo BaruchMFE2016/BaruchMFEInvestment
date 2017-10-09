@@ -22,23 +22,30 @@ def momentum_gap(univ_table, head, tail, q1=75, q2=25, naming='simple'):
     Momentum gap is defined as:
     q1 quantile - q2 quantile of the return series.
     '''
+    assert q1 > q2, 'higher quantile %d should be larger than lower quantile %d' % (q1, q2)
     name = 'momentum_gap'
     retname = 'f_log_ret_1'
     if naming == 'full':
         name += 'time_%d_%d_range_%d_%d' % (head, tail, q1, q2)
     univ_table[name] = np.nan
 
-    for idx, row in univ_table.iterrows():
-        t, ticker = row.date, row.ticker
-        ret_series = univ_table.loc[(univ_table.date >= t-timedelta(weeks=tail+1)) 
-                        & (data.date <= t-timedelta(weeks=head+1)), retname]
-        row[name] = _mmt_gap(ret_series, q1, q2)
+    def _mmt_gap_single_name(table):
+        window = tail - head
+        table['log_ret'] = np.ediff1d(np.log(table['price']), to_begin=0)
+        table['high'] = table['log_ret'].rolling(window).quantile(q1)
+        table['low'] = table['log_ret'].rolling(window).quantile(q2)
+        table[name] = table['high'].values - table['low'].values
+        table[name] = table[name].shift(head)
+        # table.drop('high', inplace=True)
+        # table.drop('low', inplace=True)
+        return table
+
+    univ_table = univ_table.groupby('ticker').apply(_mmt_gap_single_name)
 
     mmt_gap_dict = {}
     datelst = np.unique(univ_table['date'])
     for t in datelst:
-        table = univ_table.xs(t, level='date')[[name]].copy()
-        table = table.reset_index()
+        table = univ_table.loc[univ_table.date == t, ['date', 'ticker', name]].copy()
         table.dropna(inplace = True)
         mmt_gap_dict[t] = table
     return mmt_gap_dict
