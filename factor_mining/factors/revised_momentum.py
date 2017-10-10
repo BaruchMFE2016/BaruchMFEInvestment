@@ -2,6 +2,7 @@ __author__ = 'Derek Qi'
 
 import numpy as np
 import pandas as pd
+from datetime import datetime
 
 def _rmmt_sn(log_return, head, tail, c=0.5):
     assert head < tail, "head %d is greater than or equal to tail" % (head, tail)
@@ -31,8 +32,7 @@ def revised_momentum(univ_table, head, tail, c=0.5, naming='simple'):
     def _rmmt_single_name(table):
         lr = np.diff(np.log(table['price'])) # log return series
         lr = np.insert(lr, 0, 0)
-        rmmt = _rmmt_sn(lr, head, tail, c)
-        table.loc[:, name] = rmmt
+        table.loc[:, name] = _rmmt_sn(lr, head, tail, c)
         return table
     
     univ_table = univ_table.groupby('ticker').apply(_rmmt_single_name)
@@ -40,5 +40,7 @@ def revised_momentum(univ_table, head, tail, c=0.5, naming='simple'):
     for t in datelst:
         table = univ_table.loc[univ_table.date == t, ['date', 'ticker', name]].copy()
         table.dropna(inplace = True)
+        if type(t) == str:
+            t = datetime.strptime(t, '%Y-%m-%d') #XXX this is a temporary fix
         rmmt_dict[t] = table
     return rmmt_dict

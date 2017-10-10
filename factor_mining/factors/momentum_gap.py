@@ -9,14 +9,6 @@ import pandas as pd
 from datetime import datetime, timedelta
 
 
-def _mmt_gap(ret_series, q1, q2):
-    if ret_series.empty:
-        return np.nan
-
-    assert q1 > q2
-    return np.percentile(ret_series, q1) - np.percentile(ret_series, q2)
-
-
 def momentum_gap(univ_table, head, tail, q1=75, q2=25, naming='simple'):
     '''
     Momentum gap is defined as:
@@ -47,5 +39,7 @@ def momentum_gap(univ_table, head, tail, q1=75, q2=25, naming='simple'):
     for t in datelst:
         table = univ_table.loc[univ_table.date == t, ['date', 'ticker', name]].copy()
         table.dropna(inplace = True)
+        if type(t) == str:
+            t = datetime.strptime(t, '%Y-%m-%d') #XXX this is a temporary fix
         mmt_gap_dict[t] = table
     return mmt_gap_dict

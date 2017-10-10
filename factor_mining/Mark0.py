@@ -21,6 +21,6 @@ def alpha_four_factors(univ):
     factors['beta'] = simple_factor(univ, 'beta')
     factors['vol60'] = simple_factor(univ, 'vol60')
     factors['log_market_cap'] = simple_factor_1step_math(univ, 'market_cap', np.log)
-    factors['momentum'] = momentum(univ, 6, 26)
+    factors['momentum'] = momentum(univ, 4, 52)
 
     return factors

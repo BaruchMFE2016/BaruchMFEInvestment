@@ -32,6 +32,8 @@ def univ_setup_from_table(big_table_dir):
 	except:
 		pass
 
+	# big_table['date'] = pd.to_datetime(big_table['date'])
+
 	datecol = big_table.date.unique()
 	if datecol[0].find('/') != -1:
 		datelst = [excel_date_trans(s) for s in datecol]
