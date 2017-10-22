@@ -50,25 +50,25 @@ def univ_setup_from_table(big_table_dir):
 	return dict(zip(datelst, subtable))
 
 
-def univ_setup(datadir, silent=True):
+def univ_setup(datadir, version=4, silent=True):
 	if not silent:
 		print('Setup R3000 universe')
 	
 	datadir = '/home/derek-qi/Documents/R3000_Data/data/r3000/'
 	start = time()
-	if os.path.exists(datadir + 'univ.pkl'):
+	if os.path.exists(datadir + 'univ_v%d.pkl' % version):
 		if not silent:
 			print('use existing binary file')
-		with open(datadir + 'univ.pkl', 'rb') as univ_fh:
+		with open(datadir + 'univ_v%d.pkl' % version, 'rb') as univ_fh:
 			univ = pickle.load(univ_fh)
 	
 	else:
 		if not silent:
 			print('construct from csv')
-		big_table_dir = datadir + 'big_table_full_v4.csv'
+		big_table_dir = datadir + 'big_table_full_v%d.csv' % version
 		univ = univ_setup_from_table(big_table_dir)
 		# filt_by_name(univ) # This is slow！
-		with open(datadir + 'univ.pkl','wb') as fh:
+		with open(datadir + 'univ_v%d.pkl' % version,'wb') as fh:
 			pickle.dump(univ, fh)
 	end = time()
 	if not silent:

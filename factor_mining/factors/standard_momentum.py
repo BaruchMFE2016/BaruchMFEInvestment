@@ -4,25 +4,21 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 
-def _rmmt_sn(log_return, head, tail, c=0.5):
+def _smmt_sn(log_return, head, tail, c=0.5):
     assert head < tail, "head %d is greater than or equal to tail" % (head, tail)
     y = np.array([0] * head + [1] * (tail - head))
     y = y / np.sum(y)
-    # rmmt = np.convolve(log_return, y) - c * np.convolve(log_return ** 2, y)
     rmmt = np.convolve(log_return, y) / np.sqrt(np.convolve(log_return ** 2, y) + 1e-6) # momentum for unit variance within the same period
     return rmmt[:-tail+1]
 
 
-def revised_momentum(univ_table, head, tail, c=0.5, naming='simple'):
+def standard_momentum(univ_table, head, tail, c=0.5, naming='simple'):
     '''
-    Calculates the revised momentum factor defined as follows:
-    mmt_r[t] = sum(lr[head:tail]) - c * sum(lr[head:tail] ** 2)
+    Calculates the standard momentum factor defined as follows:
+    smmt_r[t] = sum(lr[head:tail]) / sqrt(sum(lr[head:tail] ** 2))
     head and tail are numbers of time periods
-
-    Comparing to the vanilla type of momentum, this new momentum added
-    penalties on the curvature of the log return series
     '''
-    name = 'revised_momentum'
+    name = 'standard_momentum'
     if naming == 'full':
         name += '_%s_%s' % (head, tail)
     univ_table[name] = np.nan
