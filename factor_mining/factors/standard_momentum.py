@@ -25,13 +25,13 @@ def standard_momentum(univ_table, head, tail, c=0.5, naming='simple'):
     rmmt_dict = {}
     datelst = np.unique(univ_table['date'])
     
-    def _rmmt_single_name(table):
+    def _smmt_single_name(table):
         lr = np.diff(np.log(table['price'])) # log return series
         lr = np.insert(lr, 0, 0)
-        table.loc[:, name] = _rmmt_sn(lr, head, tail, c)
+        table.loc[:, name] = _smmt_sn(lr, head, tail, c)
         return table
     
-    univ_table = univ_table.groupby('ticker').apply(_rmmt_single_name)
+    univ_table = univ_table.groupby('ticker').apply(_smmt_single_name)
     
     for t in datelst:
         table = univ_table.loc[univ_table.date == t, ['date', 'ticker', name]].copy()

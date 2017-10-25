@@ -61,7 +61,8 @@ def momentum_ewma(univ_table, head, tail, halflife=13, naming='simple', **kwargs
         lr = np.insert(lr, 0, 0)
         table['log_return'] = lr
         halflife = kwargs.get('halflife') or 13
-        table[name] = pd.ewma(table['log_return'], halflife=halflife, ignore_na=True)
+        # table[name] = pd.ewma(table['log_return'], halflife=halflife, ignore_na=True)
+        table[name] = table['log_return'].ewm(adjust=True, halflife=halflife, min_periods=0, ignore_na=True).mean()
         return table
     
     univ_table = univ_table.groupby('ticker').apply(_mmt_single_name)

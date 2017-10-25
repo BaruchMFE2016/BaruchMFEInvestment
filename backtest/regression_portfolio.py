@@ -98,7 +98,7 @@ class RegressionPtflSpcalc(BackTestSinglePeriod):
         '''
 
         ### Step 1: Get the estimated factor return and covariance
-        datelst = [t - timedelta(weeks=i) for i in range(n_lookback, 0, -1)]
+        datelst = [t - np.timedelta64(i, 'W') for i in range(n_lookback, 0, -1)]
         ret_name = 'f_log_ret_1'
 
         for dt in datelst:
