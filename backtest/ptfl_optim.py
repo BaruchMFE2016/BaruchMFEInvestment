@@ -145,7 +145,7 @@ class PtflOptimizer(object):
 		# equalities Ax = b
 		# sum of all the weights equal to 1
 		A = matrix([[matrix(1.0, (1, N_INS))], [matrix(0.0, (1, 2 * N_INS))]])
-		b = opt.matrix(1.0)
+		b = opt.matrix(1.0) #XXX
 
 		# inequalities Gx <= h
 		G_lst = []

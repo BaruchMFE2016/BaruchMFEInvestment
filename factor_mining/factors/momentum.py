@@ -17,6 +17,7 @@ def momentum(univ_table, head, tail, naming='simple', **kwargs):
     '''
     mmt_t = \sum_{i=head}^{tail} log return_{t-i}
     '''
+    univ_table = univ_table.copy()
     name = 'momentum'
     if naming == 'full':
         name += '_%s_%s' % (head, tail)
@@ -49,6 +50,7 @@ def momentum_ewma(univ_table, head, tail, halflife=13, naming='simple', **kwargs
     '''
     mmt_ewma_t = \sum_{i=head}^{tail} \lambda^{i-head} log return_{t-i}
     '''
+    univ_table = univ_table.copy()
     name = 'momentum_ewma'
     if naming == 'full':
         name += '_%s_%s' % (head, tail)

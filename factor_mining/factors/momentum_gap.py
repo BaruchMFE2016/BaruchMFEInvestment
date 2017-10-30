@@ -14,6 +14,7 @@ def momentum_gap(univ_table, head, tail, q1=75, q2=25, naming='simple'):
     Momentum gap is defined as:
     q1 quantile - q2 quantile of the return series.
     '''
+    univ_table = univ_table.copy()
     assert q1 > q2, 'higher quantile %d should be larger than lower quantile %d' % (q1, q2)
     name = 'momentum_gap'
     retname = 'f_log_ret_1'

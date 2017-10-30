@@ -18,6 +18,7 @@ def standard_momentum(univ_table, head, tail, c=0.5, naming='simple'):
     smmt_r[t] = sum(lr[head:tail]) / sqrt(sum(lr[head:tail] ** 2))
     head and tail are numbers of time periods
     '''
+    univ_table = univ_table.copy()
     name = 'standard_momentum'
     if naming == 'full':
         name += '_%s_%s' % (head, tail)
