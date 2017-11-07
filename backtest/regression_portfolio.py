@@ -8,7 +8,8 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 from factor_mining.robust import check_nan_friendly_finite_array
 from .BackTestSinglePeriod import BackTestSinglePeriod
-from .ptfl_optim import PtflOptimizer
+from .ptfl_optim import PtflOptimizer # XXX
+from .ptfl_optim2 import MeanVarOptim
 
 
 # Linear fitters that might be applied
@@ -18,7 +19,8 @@ LS = Lasso()
 EN = ElasticNet()
 
 # Convex optimizer
-optimzr = PtflOptimizer(U=0.2, L=-0.2)
+# optimzr = PtflOptimizer(U=0.2, L=-0.2)
+optimzr = MeanVarOptim(U=0.2, L=-0.2)
 
 
 def get_ewma_weights(n, halflife):
