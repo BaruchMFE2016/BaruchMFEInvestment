@@ -42,10 +42,15 @@ class MeanVarOptim(Optimizer):
         return w_opt
 
     def _opt_long_short(self, w_old, alpha, sigma, **kwargs):
+        import pickle
+        with open('./output/temp/alpha.pkl', 'wb+') as f:
+           pickle.dump(alpha, f)
+        with open('./output/temp/sigma.pkl', 'wb+') as f:
+            pickle.dump(sigma, f)
         gamma, lambd, L, U, dlt, lev = kwargs['gamma'], kwargs['lambd'], kwargs['L'], kwargs['U'], kwargs['dlt'], kwargs['Lev']
         
         def objective(w):
-            return 0.5 * gamma * w.T.dot(sigma).dot(w) - w.dot(alpha) + lambd * np.sum(abs(w - w_old))
+            return 0.5 * gamma * w.T.dot(sigma).dot(w) - w.dot(alpha) + lambd * np.sum((w - w_old)**2)
         
         cons = ({'type':'eq',   'fun':lambda x: np.sum(x)-1}, # sum(w_i) = 1
                 {'type':'ineq', 'fun':lambda x: lev - np.sum(abs(x))}, # sum(|w_i|) <= Lev
